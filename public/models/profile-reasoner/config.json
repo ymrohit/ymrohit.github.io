@@ -29,10 +29,15 @@
     "fork_boundary",
     "timeline",
     "follow_up",
-    "private"
+    "private",
+    "capability",
+    "profile_summary",
+    "synthesis"
   ],
+  "baseAnswerFamilyCount": 11,
   "maxSourceTokens": 512,
   "retrievalDimensions": 128,
   "evidenceLimit": 6,
-  "privacy": "All inference stays in the browser tab"
+  "privacy": "All inference stays in the browser tab",
+  "bundleBytes": 10954844
 }

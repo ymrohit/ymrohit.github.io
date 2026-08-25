@@ -1,21 +1,20 @@
 {
   "format": "profile-reasoner-corpus.v1",
   "meta": {
-    "name": "Rohit public work corpus",
-    "generatedAt": "2026-08-25T01:50:32.800267+00:00",
-    "documentCount": 67,
+    "name": "Rohit public work corpus v3",
+    "documentCount": 70,
     "typeCounts": {
       "achievement": 1,
       "claim": 10,
       "contribution": 4,
       "profile": 1,
-      "project": 17,
+      "project": 18,
       "repository": 11,
       "repository-fork": 12,
-      "skill": 6,
+      "skill": 8,
       "workflow": 5
     },
-    "privacy": "Curated public summaries and public GitHub metadata only; visitor queries stay in the browser."
+    "privacy": "Curated public summaries and public GitHub metadata only."
   },
   "documents": [
     {
@@ -37,7 +36,7 @@
       "direct": true,
       "merged_prs": 0,
       "url": "https://docs.pytorch.org/docs/docathons/docathon-leaderboard-2026.html",
-      "display_title": "PyTorch Docathon 2026 \u2014 first place worldwide",
+      "display_title": "PyTorch Docathon 2026 - first place worldwide",
       "record_id": "docathon-2026",
       "display_summary": "Rohit ranked first on the official global leaderboard with 47 points across 19 merged documentation pull requests.",
       "display_proof": "#1 worldwide; 47 points; 19 merged pull requests",
@@ -71,7 +70,7 @@
       "type": "claim",
       "title": "Applied AI engineer with operational depth",
       "summary": "Rohit is positioned as an applied AI engineer and Python developer whose strongest work",
-      "proof": "PDF professional knowledge base, public/profile synthesis",
+      "proof": "PDF professional knowledge base",
       "tags": [
         "identity",
         "ai",
@@ -87,7 +86,7 @@
       "record_id": "identity-applied-ai",
       "display_summary": "Rohit is positioned as an applied AI engineer and Python developer whose strongest work connects AI to real regulated workflows.",
       "display_proof": "PDF professional knowledge base, public/profile synthesis",
-      "embeddingB64": "Ex50ruwy96qkLMsn6yztrU2lCi+8rzuqrCq8qf+sEi4LLMOn5aP0Il8oFadOMsStfqr5oXeafLM5sfejnyaUEk2oDifbsDaqdSmRrPIwPyowsasrP7KBKeUrTi/2IAQmL7BQLf8wOqncLgcwFimDMJwsfyxPsAOsay1/rJ8a2S/yrNKwIykqpgaotCjaISEs2C2ulgatW6xxLzwkhClssPcubi14qdmraax3n6at3y+gqPyp/DBJo+2qv6IyrSWt+auun1IkQq6+pHMwN6bKqs8k3jLTruIsGyRyKkMkXSWsqG+vDLHhrWAvtiTRLOwroa3PoRapuTD+KrWuUa1irg=="
+      "embeddingB64": "hpkPrngxU6YYK7YZey1XrcWeCy9OsLiqLSgFqD6tcyxNLaSnlZjBINwpeapCMoOry6ThptkbpLO9sMSolSu9JiWlbh9MsjeoHivDrJEwaydbsfErw7EjH40rmywGG0clbbBjLoMwH6UZMNwv2yqPMFotJSvosKOoEyz1rKUo8S9DrkGxaCy9pt6oWSYqJ7csIi6XJ7utXqwHLy4izinJrw8wwC6gq6qqZ6rmJkGtwC4DptmrVjC6oVOrOaVKrRGt4Kzdo/soI64OpbwwTKm5pi8mfTIRrdEqMicBLHYrVinAqP+vIbF4re0vzRhgLPMq465KpBCsKDECLNiuKa6Zrg=="
     },
     {
       "id": "r4",
@@ -187,7 +186,7 @@
       "type": "claim",
       "title": "PyTorch Docathon 2026 winner and repo leader",
       "summary": "The official PyTorch Docathon 2026 leaderboard snapshot listed ymrohit as #1 overall with 47",
-      "proof": "Official PyTorch Docathon 2026 leaderboard, last updated 2026-05-16",
+      "proof": "Official PyTorch Docathon 2026 leaderboard",
       "tags": [
         "open-source",
         "pytorch",
@@ -205,7 +204,7 @@
       "record_id": "pytorch-docathon-winner",
       "display_summary": "The official PyTorch Docathon 2026 leaderboard snapshot listed ymrohit as #1 overall with 47 points, repo leader for pytorch/pytorch with 31 points, and tied repo leader for pytorch/executorch with 12 points; Rohit is publishing the site with this as the launch win claim.",
       "display_proof": "Official PyTorch Docathon 2026 leaderboard, last updated 2026-05-16 05:18 AM PT",
-      "embeddingB64": "9SyirtItd67PKp+rnqcwqNqXcao9rD+uh6bJJ9uw8CsfK4GtDq5kqR8goh48MMgtWSgJMbUp968Pr+ietp5kJ2Qfji1yqD6oWZ/CphUtBiWXsWUqTaYHrngwAajgKwkoYK3CL96iG7EHLZAv9x/1MAYwNStysgqpYitflB8URyqbIsKwVJ7sLJqwzy0PLmUgVCjVLDGukbBPMeWwdzGZsU+ekKlxKeauGKlUpU+xQS1VLnUSu6n+rLewIikXmY2opakAKtmWvqYapsEr8qd5r0EwozABIqmrtLBBLZavyzBiMKwl4LCrrQgstyWkKEOUsTAbKUcsty8wLl6vKSdfrA=="
+      "embeddingB64": "0Swlr/gsTq6MKa6nsqeopC0Y9apdrJKveaUvKLOwJygFK9Gsd64TqNweah9fML0u9CdyMN8pwq+qrwqgEqIoILEhCS3bqBmo3aYop9MteCjBsZwriJY8r6YwdKdrLFAnuq01L8whkLAaLRswYSLrMO4wgSqmskqo5im5GPmfDiwGGMawTSGYLDaxuCwMLxQohSgiLIStabATMeSwBDEIsV6hb6oCKMusiaqYqWmxby0rLhqdF6l0rXiwMidpHwCpsKmtK8OfaqYipXksP6c1rxEwRjDPISCsBrE9LQawAzGFMA6SkrC2rHEsdiaoLDaa9jBHKdoqyy++Lieu4im4rA=="
     },
     {
       "id": "r9",
@@ -235,7 +234,7 @@
       "type": "claim",
       "title": "Small models are not a novelty here",
       "summary": "The stock-code mapping work connects tiny-model fine-tuning to a real business data-quality",
-      "proof": "PDF professional knowledge base, public-indexed summary in PDF",
+      "proof": "PDF professional knowledge base",
       "tags": [
         "small-models",
         "fine-tuning",
@@ -251,14 +250,14 @@
       "record_id": "small-model-practicality",
       "display_summary": "The stock-code mapping work connects tiny-model fine-tuning to a real business data-quality problem.",
       "display_proof": "PDF professional knowledge base, public-indexed summary in PDF",
-      "embeddingB64": "Rioer6Yr+y3WLjKvITENrjAqmqqNrSiwLCt7p32v3a3BIGAx5KjDqe0qLCpIL6ewhy/PLO6wgLNWKaSpVyheoNKq3alvqhGsOyz9ocUqm620pheyqajppF+hNybjLYes8Kf2LQAdNCOtLkowvS13JTQuPi5opL6v2S7vreutxC+hnaStPSiVsAqpvy1enr4neim0KeSnI7HrLa4k9yXDo1YvfDIDJWyelCh0q6aviqUupS2xhDAVLGYs1a9PI6Mj16vWqKcx/qhHq9kxaaBsIj+smDGUKqat0atFIQwnYihWI5SxqK1PIZAuhiEsoT0yNq9qpGSsSCZYLsCn4K5Mqg=="
+      "embeddingB64": "0SoWsOcpkS8cLpmvtDExrc0qyqm0raWwXig5pdCuka+GKLsxAah5qXstNiwSLZKwRS7TLEywobP7KTStYSo1iISsj6pZpzmpVS2tpd0saa7bp12yqqIrq0yc1BzALYasFaqgLWElCR1rLc4uYyxlGI8uMyu/pnquGC+8rButui6epLmuhCn+sOKoXyymHIgp9ijEKS+o+rChLp+j0SdqGkIwdzIJJtYg0yntqO+v6an8pAexKC9rLQUshq+3JmEmP6q1qRExZaGzqcQyQaa9KNqmFzE4K+atRatQpAYmziL+KFqxgaxYIiQw9Cj2oX4yVa0gH7SsySgULmOpoK5Dqw=="
     },
     {
       "id": "r11",
       "type": "claim",
       "title": "The website itself is an AI artifact",
       "summary": "Rohit's portfolio is designed as a client-side personalized LLM system: a static website with",
-      "proof": "Current website build plan and generated project dataset",
+      "proof": "Current website build plan and generated",
       "tags": [
         "local-ai",
         "browser",
@@ -276,7 +275,7 @@
       "record_id": "personalized-llm-website",
       "display_summary": "Rohit's portfolio is designed as a client-side personalized LLM system: a static website with local model inference, curated memory, action validation, and real-time interface control.",
       "display_proof": "Current website build plan and generated project dataset",
-      "embeddingB64": "mym1sKwu36X2o4wnBjD7qZCnxKygrc6ssywhJESu/aSmFakkUamCq1Uskid6L6ivoS0BLvWynrNTqWocXSy0pxgr2CDXqqyw4C3yG9ksT6hMrXqt/q+ULZOliynjKPiheas9LtgqTSi2L+0zjTC3LTkqoy+VpD6wZijUri6eAy5OqVivSCoWrr4S7SmlrFkoPi7SKaSiILGNMYAvHadXrcAsDDB4JcSpvKkaKu+pjS/Orf6wbzBYJy8nla7RGAEm3Skno2YufaqIreYwVKX9IUytLTKwqZmqsCzyLKsprib9qLOx+a27qhoqeqhpJxAx0rG6qCSwYKYRqPGpAaX5rg=="
+      "embeddingB64": "mSnUsKUusqYZpBAoxS8hqd2mlKx6rXWsGS3vJmyuRKX3nYAm+6gBqwcsHyZ0L4+v6C3cLciynbMoqSwcOCxpqJor2xggq92wNi0MHqUsMagJrWatUrDcLUym7SnUKC6k16r6LZsqECnmL+QzzzDRLWApwC89oXmw8CdvrkSc+C02qBKvSCtQroQXXSn3rDsnMi6IKgyfJ7GCMcQvzKcGrVAsKzCVJempr6meKQaqYy9VruOwjzDUJysoKa/aH7onWir2ow8uZqqtrZYwuqLtHRyu0TECqVCqkiwKLawq1ifYqIqx6a1jqiopx6giKBEx8LFJqUWw96c9qaipbKTarg=="
     },
     {
       "id": "r12",
@@ -298,7 +297,7 @@
       "direct": true,
       "merged_prs": 2,
       "url": "https://github.com/Significant-Gravitas/AutoGPT/pull/8216",
-      "display_title": "AutoGPT \u2014 Flux image-generation blocks",
+      "display_title": "AutoGPT - Flux image-generation blocks",
       "record_id": "contribution-autogpt-flux",
       "display_summary": "Two merged contributions added Replicate Flux image-generation blocks and updated the advanced block to Flux 1.1 Pro.",
       "display_proof": "Merged PR #8216; Merged PR #8266; Flux and Flux 1.1 Pro workflow blocks",
@@ -322,7 +321,7 @@
       "domain": "contribution open-source executorch pytorch",
       "year": 2026,
       "direct": true,
-      "merged_prs": 3,
+      "merged_prs": 0,
       "url": "https://github.com/pytorch/executorch/pull/19518",
       "display_title": "ExecuTorch documentation contributions",
       "record_id": "contribution-executorch",
@@ -1319,7 +1318,7 @@
       "url": "https://github.com/ymrohit/wifi-densepose",
       "display_title": "wifi-densepose",
       "record_id": "github-repo-wifi-densepose",
-      "display_summary": "Production-ready implementation of InvisPose - a revolutionary WiFi-based dense human pose estimation system that enables real-time full-body tracking through walls using commodity mesh routers ",
+      "display_summary": "Production-ready implementation of InvisPose - a revolutionary WiFi-based dense human pose estimation system that enables real-time full-body tracking through walls using commodity mesh routers",
       "display_proof": "0 GitHub stars; Updated 2025-12-25",
       "embeddingB64": "KCpqrWov7yTyLpqqsig1q3csuinur+ytOqyKqWiuCCXlMZSvlafLqyMohSRnKv2kCC98LIQleLLnIC+vMDHNLEMpey5msKen/yofKtQub6l/r9IqiqCerkYsgiQkKBcnkqraMpWntSggLRcwmCs2MEkrpy/ZrWWv+yp2plYsxiizoIOsB6+tLyCk8SlapsUl4JB4Lh+sWbMKMdatJS9yqvopnCYuplCy2KPqqgGpkiJULFqrCy7tnjSxG4TgqO2pe66ZKuUuV6jgqLIrZSmMmAkwAzSkKq+a6K96KheqyCilnEqusbDQqOYuGKgOq1wjchzhrAWkMjLlMMivZagYrw=="
     },
@@ -1350,7 +1349,7 @@
       "id": "r57",
       "type": "skill",
       "title": "Backend Platforms",
-      "summary": "",
+      "summary": "Technical capability spanning Python, Django, sql, Celery, Redis, Gunicorn, NGINX, internal",
       "proof": "Python; Django",
       "tags": [
         "python",
@@ -1365,15 +1364,15 @@
       "url": "",
       "display_title": "Backend Platforms",
       "record_id": "backend-platforms",
-      "display_summary": "",
+      "display_summary": "Technical capability spanning Python, Django, SQL, Celery, Redis, Gunicorn, NGINX, internal dashboards, and workflow automation.",
       "display_proof": "Python; Django; SQL",
-      "embeddingB64": "zi85pVwxyaG/JYMt/C58rT4f96HJn9axESwYsy8rMa2/KhevJ57jrW4reywVL9ysza0yLMmoX64Zq6Cw8pjHLL2sLSQsqGSjyzFlqXovlZx5qAiuDR/XJOkjaagJJBmtIKrmKMMwba1rKLct8qAtJwAxwiTxrZopXigxrian5zBArVGtG6kPrtiphyhZKQsw/qImqWyhhrCnLlyoYivRrCsw2zDwKl8oCKkuIU6sYiVYn7GvFDF2KgkmkCh+reSoZKzKqFQy8KjXKQsz5KxKHVsrozRHrsOe2ZVvqQ6rs6sbJRmybKyVqccvXCalJMYvaSsdJRCoLC6uMcSnP7BsrA=="
+      "embeddingB64": "5ijerI8wSatBL4gghS4IqqYmWa4sqR+xh6Jyse+gBaAbLMWq+qBark8tASsmLtmushS1Lm6t0LEqqa2teStgLoWfHi1NqRSoSjHXKVQsv6ZUsY6opaM0JugopCtrLVIhVacjLyouca9MLTIxqSWuK8EtEygarsSptS4vr7wpDCxSHamwJ632rKyu5CwirCotszB9JfAacbPQLn2sESjJr1MrPzAoK1+vcSVIJu2vCTHeK/+tMTHDLYefjyENHtEotibPJDcxdq4hD0cwPLBiqRcwBTOLpZOoOiTUJIOrYCIkJ9SuPLBBrQ4q8SWgpGIs0h9YLAuuWi9iMI2pPK9/oQ=="
     },
     {
       "id": "r58",
       "type": "skill",
       "title": "Local AI",
-      "summary": "",
+      "summary": "Technical capability spanning Ollama, LM Studio, small-model fine-tuning, ONNX",
       "proof": "Ollama; LM Studio",
       "tags": [
         "ai",
@@ -1389,15 +1388,15 @@
       "url": "",
       "display_title": "Local AI",
       "record_id": "local-ai",
-      "display_summary": "",
+      "display_summary": "Technical capability spanning Ollama, LM Studio, small-model fine-tuning, ONNX, Transformers.js, WebGPU, OCR, structured JSON outputs, source-grounded summarisation, and privacy-aware deployment.",
       "display_proof": "Ollama; LM Studio; small-model fine-tuning",
-      "embeddingB64": "pyoasqEwJagEJTErLi5tmF6moaF6qmWuSCPCL9SxHSIDpgIuryJ1rDAu6CA9MRSMJCsCLxGvZbPSo5usLKmJrYSflBmhpvCw/KY4qiMrVKg9seatda8kKGouwSW8K90oQKxmLkMgbqbZL1oxsCx/MJapKywQrdKxvy3/rOyeSywCpays8y/qr5etMi1sqp0mZinpLT4gs68HM9IoB6fiqTMlEjDSKeqrLKqNnLWyay5ErUOqViZuLVwnNLEgLNcsCiz4pw6rpiZ+rpwtqq1WqcitsSxfqJus3CqALWCe1S8AMX2rhqwdrd0pMSwiLeQxB6wmKOCvdSA0KIirYicqsA=="
+      "embeddingB64": "+CnksfUwAqkFLVaIoS9WqM8isq2vqjmuKCoFKaiwxqb6JJowvSmXrK8tk6MYMA6s7iiWLlSybbKroh+p5KeJrJMX+qPnIQywXSnfoTIcVK3FrrGvaqyvKbgq+S4aL/YpjK3RLnQiMx2HLe0xpi7WLaqmSytvqPyw2y0criymfi6XJl6wdyyVsTKoMi6mrBAmsCxJLeIiA7JgMKwsuanMId0pRzJKLJOq+yPWHiixyC7drQavLi6PL9MtQLF3LQYrhypjpmkrpRayrwEurKlaqaasKS4qp62pDyhjLscrbyZELqCva6tWp6Mk/idZJnQx06/pI9iw2Z3TKTuUY6bdrA=="
     },
     {
       "id": "r59",
       "type": "skill",
       "title": "Model Research",
-      "summary": "",
+      "summary": "Technical capability spanning parameter-constrained training, bits-per-byte evaluation",
       "proof": "parameter-constrained training; bits-per-byte evaluation",
       "tags": [
         "research",
@@ -1412,15 +1411,15 @@
       "url": "",
       "display_title": "Model Research",
       "record_id": "research",
-      "display_summary": "",
+      "display_summary": "Technical capability spanning parameter-constrained training, bits-per-byte evaluation, speculative decoding, online draft-model learning, and recurrent/folding transformer ideas.",
       "display_proof": "parameter-constrained training; bits-per-byte evaluation; speculative decoding",
-      "embeddingB64": "lywerlsqwZSrML2kayl8qfKlSisbqlCoRS0QqCCvyy2BJ3IwbK1Dq8qifSxyKriwAipQL+QpqLO8LbciiCQarcSrViDUqauwrCxFpsIr7Kj5pcexSaxFKG6sRzH+HRoksapmKXwj7afdL34uNqjSLGYjkSqZruOyazCaq+GqhC2xKNYckK6Yrruk1CwWHhksEy7qKt0kWqxkMW2ksiQ6sCio0TCdFAitnqx0rNGvbKGUnqkYcTJOLXQpNbBVH2wtrapcqk8xVK5jqTMv2K6ro+GlKzR4IAektaU/rAqweC8QqB2wcK53sF0s9ykkq7AziKiMJEyqxCmlLAarJ62BKA=="
+      "embeddingB64": "qigIreSUr6FtLxOokCymqKGo7KiarImoZSkBrAWsYiurLbot1Kt2qiopGxZCLC2xmisyL8eqA7R/LCIVgiuGq5IcVifbrJqtlS5OI4EmuqeYqsKvFqbZIKCsWzEapdkoSap+LBEekyjGMCQxfCCHLQkqZSj2r/yvuS8CrsAdBS+KIqGr5K3LrO+mrS24oFEwGTAHLGAl865+MFiba6l1rpaYITLJpVisG6i4p82uPCyYKZalsDANLb4sga41LPstC61nJ10z6a/jrE4xUbC3oxEpZTMeow2pfyn0lG6tzi6Oqf2xAbD4sTEoOiBhrKQx7634IMiviyqZLPulahEqHg=="
     },
     {
       "id": "r60",
       "type": "skill",
       "title": "Open Source",
-      "summary": "",
+      "summary": "Technical capability spanning Git Hub PRs, PyPI packaging, README/docs, developer libraries",
       "proof": "Git Hub PRs; PyPI packaging",
       "tags": [
         "open-source",
@@ -1436,15 +1435,15 @@
       "url": "",
       "display_title": "Open Source",
       "record_id": "open-source",
-      "display_summary": "",
+      "display_summary": "Technical capability spanning GitHub PRs, PyPI packaging, README/docs, developer libraries, large-repo contribution, PyTorch Docathon 2026, ExecuTorch docs, and public model experiments.",
       "display_proof": "GitHub PRs; PyPI packaging; README/docs",
-      "embeddingB64": "kCrJq9YvoK2ULOSo5q3kmpolTi2rsLqt16ZNrF+w3JegMWKw7wurqV4l+yaiJgsu/5lSJs0xha4BrTyxEKedF5miuygDsE4tbSm6KlMyeCm+sf8tIKiNqgcw8aBlGOmeh63oLj4sH6jmMECqPalLKMYpjqKAstKwPzBvJWsgqCgEq+WsFq5aH9ewqCuCLasvGShLJ3mpf6zXLkuuHi7/qWMh1Z53qHWpvLHEqQGwtidtq+UvDynzLG+x2Ki9JyqpLauFrbYpzK9ZJhOs1yjTrAwtgTJPq7AoF69MpfmquCnII9EcALE0rVQtPqTaKgAuIqZnLW8gTzNxMmarIiGQqw=="
+      "embeddingB64": "YiWsrWouya2dLvKpFKs0GuAl5CjhsLqtoaWwrbyufJo6MvqvGyYbqS8oWqXRLO4rOqBTKC0uwLClrGywfidyIIYmJCiGsDUrDitrKeMw5Chfsh0ueqsrq8wt+yuZH8okGK/oL34t6KOhMXckaJ9WKUwsQKiJsu6vejD0o08rOC5pqjiwg63Znk2wOivCKhYwni0xKrKkxK8yL0CsAS0eqg4pbSvepbWrerC+prGvxCxhnTAu1yhfLZ+wZ6mpLFyltaz4p2wu8LBnoE6hjqjlraUvJTJgqoIpaK13Kb2nZSsKJHypWrHKrSAs5KD3K/As36qwLTKsIzNgMpOp5CXnqg=="
     },
     {
       "id": "r61",
       "type": "skill",
       "title": "Regulated Pharma",
-      "summary": "",
+      "summary": "Technical capability spanning CBPM workflows, specials operations, controlled records, product",
       "proof": "CBPM workflows; specials operations",
       "tags": [
         "pharma",
@@ -1459,15 +1458,15 @@
       "url": "",
       "display_title": "Regulated Pharma",
       "record_id": "pharma-domain",
-      "display_summary": "",
+      "display_summary": "Technical capability spanning CBPM workflows, specials operations, controlled records, product normalisation, dispatch tracking, NHSBSA-style analysis, and Sage-style reporting.",
       "display_proof": "CBPM workflows; specials operations; controlled records",
-      "embeddingB64": "GiJ7rU4xESXtLM+hPjAWqbMoyCB2oO+vbS09sNeuI6zrJZ8tCSh0p10fJysfKdmxsS7oKcekvbJ1rG6ou6pZK12uT6y3qkskzimErYMs9aR6pyawB65KpQ4kyIGgIEiqG6typb8wrq8vKi6bwqayrAAwhiYHsRStZy3yLRewly/TJSCukS6As0iuuDAQMkQunCn/qKkq26hYLkatpRkIsIQegy5hI1oogJi5reqxwSBEsO6sajASLvMl96QDLDEke6h+rG0sbK8yrQIxjKxqsAKt6y25rO8pPqwyrrYrjZoQLbko5a7fqRQjZDClGi0x/ieOLDKs7TCVL9msN7AzJg=="
+      "embeddingB64": "1qJxrngweqV4LbyoaTDBqBImF63Cpvev0yrPr3+sQauJKg8vpCLyp10pSSRHLOyxPy3nLO2rzLO/qvqq9xy6K8OqHqj3qy0H7C0dqbYqK6ZNq/+t66hCqFud5ioiK/wbUqsDKe0unKrmLcguM4B/qWMw5iHHsYyqxy3EJXKpPC8yJoewTysxs8GvaTAZL2UwIC7HFGMoMa6PLomrgqmBrpUmoDE4IXoiACQYrH2yoS2/rJetNC+ULiEqY6w4LjAr26gNnSkxOrEirf8xY6/Ar28l8C0BqxkZ9KUGrIApjCkCKV+s9LDarSkiMS0MpCcvC6nhLYquczBoL3Coaq3TJQ=="
     },
     {
       "id": "r62",
       "type": "skill",
       "title": "Security and Evaluation",
-      "summary": "",
+      "summary": "Technical capability spanning OWASP LLM risks, prompt-injection testing, web vulnerability",
       "proof": "OWASP LLM risks; prompt-injection testing",
       "tags": [
         "security",
@@ -1482,9 +1481,9 @@
       "url": "",
       "display_title": "Security and Evaluation",
       "record_id": "security-evals",
-      "display_summary": "",
+      "display_summary": "Technical capability spanning OWASP LLM risks, prompt-injection testing, web vulnerability scanning, Playwright crawling, structured scan reports, and LLM eval dashboards.",
       "display_proof": "OWASP LLM risks; prompt-injection testing; web vulnerability scanning",
-      "embeddingB64": "WqhQpFQqA6zJL/sttaCrqwEoNK23rGawxC6Np7OxUKQInkQpia4WrqAsbCDOKgiuKDDCKTOqN7HArWMs6CNIrz6fcCdBriewviHlIjstWyx9smyqz6sOLj4kUy6qKkYwTbESK28nTyKkL6stNB+GKy8glyr5rai08jFFrmmwFS8XrW+ea6hfrZ+rmC3CJ5MklC4oKfmm+a7ZKigm1KbbrWatdy68r4ynNq9OqROxnC6hq/CY0TDBp2Sp1KoeqLIo4izOJcMp3qy4qR4RQayjmsqt6DTQqtqp2qkQIVKnjy+qrcGppaxbJfghfaZpKPIxpa6KKF6tD6cALzOrASm7rQ=="
+      "embeddingB64": "QxyeqmIunqw5LyIsCStxrO8kta6arcmwAC5WqyawqSc2J/Ic9qxjrpsq/hACLb6vEjAGLdGv5LHxrL8pASAHrZEhHiw9rXuvsyl3Ip0s+iTpsrKq1arWLKIoQC+HLPEtJa8iLZgnx6FDL6gwdSiiLWUqkiwSsHmz7jC8r4iurC91q0uq7av4rEKtci+hInor8y6rJ0qjALCsLqIjl6b/rrOqPi4Zrdaqja0bqnKxSTEVmkioszDCpt+k56kjIR0neyvjJ28tnq0IrDcsoqzfpwuokjTWq/+ovp5nKxqogC5SqVeu166qp6KYipxoIuowua0LKGWtTCUHMB6rRyzkrQ=="
     },
     {
       "id": "r63",
@@ -1603,6 +1602,79 @@
       "display_summary": "A tiny model is trained for a narrow, high-value mapping problem where domain-specific language beats generic string matching.",
       "display_proof": "Messy names: Product strings include strength, formulation, abbreviations, and variants.; Domain examples: Training data teaches valid mappings and formulation-specific exceptions.; Tiny model: A small instruction model learns the mapping behavior.",
       "embeddingB64": "QyPSr7Uun6TiLVCr/zDUrYAoPKMlJX6sL6VlqY6sU67NI2wxeyLkliKdiC3mMGatwS2HMMixbbOFqjKky6bXkDWtd6X8qM6r5CyoquiiQ7DHpuWxbaqqpC0oLSkqJF+sIaKKGJuo4a11KW0ufy6pLy4vjSi2rQGmYS7hrrOwZDAwJYStcDC7sHqulzBFIfUj1C6rLWQona/GL3kp1hiEpW4wrTLmKkApdyd5JQOykyY3q4Cx1yzvKrctB60VJasoWJxBkm0sGCn0rDYyY67EkS2qWSkCH9Kt9KBdKOodJywLMbCvIbAfqBIsDiseJNAwb60fJRiwLSOQKbqbHbBrrA=="
+    },
+    {
+      "id": "r68",
+      "type": "skill",
+      "title": "Verifier-first AI Systems",
+      "summary": "AI system design where models propose candidates and independent execution, tests, schemas, or",
+      "proof": "Verifier-guided code generation and; Correctness and stability gates",
+      "tags": [
+        "verification",
+        "ai-systems",
+        "evaluation",
+        "testing",
+        "evidence"
+      ],
+      "domain": "verification ai-systems evaluation testing",
+      "year": 2026,
+      "direct": true,
+      "merged_prs": 0,
+      "url": "https://github.com/ymrohit/crucible-studio",
+      "display_title": "Verifier-first AI Systems",
+      "record_id": "verification-ai-systems",
+      "display_summary": "AI system design where models propose candidates and independent execution, tests, schemas, or referees decide what survives.",
+      "display_proof": "Verifier-guided code generation and adversarial execution; Correctness and stability gates for generated GPU kernels; Evidence-locked browser answers with counterfactual testing",
+      "embeddingB64": "CjB4rHgyda5nKg0qWi/mq7mjlR9BruOtES6tqLesAytHKjKrKSQCqzIkWaj+Mciuz6FwMAWt3LLArksnaBylrYgkKiokrSKr5SZDqT8uLSa0sYapp650Lw0oQiwZMGolda0oLw4s5LBdLtUvGy2NLcMnGC7Zrgasgi5FrvOqWDF0JB+vFCkXqCaqfTClJlYthjB1KeapTrGvMY8p85/srJAsMS+AJk8Y6qyLqcKxNzJvrM8eNy0aobIiT601JkcnXabnKsIrval2ppssQqkGqDUmrzE1sduPfZwyMGSnBp3KHJiw/bCQq4ol3qQ+Kd0wYasRD/itXCz8Kqus15Elrg=="
+    },
+    {
+      "id": "r69",
+      "type": "skill",
+      "title": "Multimodal Intelligence",
+      "summary": "Video, image, frame, and audio intelligence built around budgeted selection, typed outputs, and",
+      "proof": "Video frame and audio analysis; Typed scene intelligence and structured",
+      "tags": [
+        "multimodal",
+        "video",
+        "computer-vision",
+        "image-processing",
+        "audio"
+      ],
+      "domain": "multimodal video computer-vision image-processing",
+      "year": 2026,
+      "direct": true,
+      "merged_prs": 0,
+      "url": "https://github.com/ymrohit/openscenesense",
+      "display_title": "Multimodal Intelligence",
+      "record_id": "multimodal-intelligence",
+      "display_summary": "Video, image, frame, and audio intelligence built around budgeted selection, typed outputs, and local or managed inference.",
+      "display_proof": "Video frame and audio analysis; Typed scene intelligence and structured outputs; Local Ollama and managed-provider execution paths",
+      "embeddingB64": "lqiIpIIzArHmMD0i9KQ6rECbn6JJlh+txJkwslykOTBGLQMqjqXzp9IpeCu8K+ivBKC/LQ+tzLBTrgmV66ywqPGuOy5JrKWvbi3aqNooaSSEsDqpAqyIKrco7zP5oCoqgq3tnxkjoK6yK/Es0KRHLyksiaGzr46u4TGxrWes5SofpCCuca0SrqGsrS/2KeQUEzEpnckqNaeCLIuqKKLfsTupXixdpt+ulqipqXewZDBFpJ+nCjFZmXioXimrJSAlQxkdqqydi60cqL0vAbDosC4iqzJUsIot8SfxJMmpiikZJXaeFrI4sW+quy4jqM8tMJjaK4iofS9aKl+sOrBVpw=="
+    },
+    {
+      "id": "r70",
+      "type": "project",
+      "title": "Profile Reasoner",
+      "summary": "A 10.95 MB browser-local neural evidence planner that routes open questions over 70 replaceable",
+      "proof": "10.95 MB ONNX planner running entirely in the; Replaceable public",
+      "tags": [
+        "browser-ai",
+        "local-ai",
+        "onnx",
+        "reasoning",
+        "verification",
+        "privacy"
+      ],
+      "domain": "browser-ai local-ai onnx reasoning",
+      "year": 2026,
+      "direct": true,
+      "merged_prs": 0,
+      "url": "https://github.com/ymrohit/ymrohit.github.io",
+      "display_title": "Profile Reasoner",
+      "record_id": "profile-reasoner-v2",
+      "display_summary": "A 10.95 MB browser-local neural evidence planner that routes open questions over 70 replaceable public records, cites sources, keeps short context, and rejects unsupported or private claims.",
+      "display_proof": "10.95 MB ONNX planner running entirely in the browser; Replaceable public evidence corpus rather than profile facts in weights; Fresh hidden, counterfactual, privacy, grounding, and browser-runtime gates",
+      "embeddingB64": "sTHBsE0xYh59KOQo6S2erfEhgSxRrEGpnCy8HhGvXi1Kpl+kRpQNrTEgcKivMLSrHi9CJUmtg7LArvAo4KhAlmQsWCL1rIKmfKJoItMsfJmPrXusra2OLQ0rTyjYKemf6akOMIwwWq2PMPcxHy9oMDIoejJHrvKv9K0EJE4blS2IHVOuJCy4rvqrmTBoLZQw9i3CJdSkFbC0MEiahKYPsj2eKCraJBasz6YgrW+uDS/6ryivETLrobsaPa/lniIfLK3gqYwteaMhrwsrMySirSKrrTJPrdYYEahYLTmn8CCKp3Kys64iq1ApEyuoKz0vt6XPqRmsSy8lKnGuraNSqw=="
     }
   ]
 }

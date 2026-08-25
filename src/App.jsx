@@ -71,6 +71,7 @@ function SourceReceipts({ sources }) {
 export function App() {
   const [routerState, setRouterState] = useState("idle");
   const [routerStatus, setRouterStatus] = useState("ready when you are");
+  const [modelLabel, setModelLabel] = useState("10.95 MB");
   const [query, setQuery] = useState("");
   const [activeId, setActiveId] = useState(null);
   const [activity, setActivity] = useState(null);
@@ -104,7 +105,7 @@ export function App() {
   function activateRouter() {
     if (routerState === "loading" || routerState === "ready") return;
     setRouterState("loading");
-    setRouterStatus("loading 9.73 MB locally");
+    setRouterStatus(`loading ${modelLabel} locally`);
     const worker = new Worker(new URL("./profile-worker.js", window.location.href), { type: "module" });
     workerRef.current = worker;
     worker.addEventListener("message", (event) => {
@@ -113,6 +114,7 @@ export function App() {
         if (message.stage === "loading") setRouterStatus(message.text || "loading local AI");
         if (message.id) setActivity({ stage: message.stage, text: message.text });
       } else if (message.type === "ready") {
+        if (message.bundleBytes) setModelLabel(`${(message.bundleBytes / 1_000_000).toFixed(2)} MB`);
         setRouterState("ready");
         setRouterStatus(`online · ${message.records} public records`);
       } else if (message.type === "answered") {
@@ -258,7 +260,7 @@ export function App() {
             <div className="router-meta">
               <span className={`router-state ${routerState}`}><i /> {routerStatus}</span>
               <p className="runtime-disclosure">
-                <strong>9.73 MB neural planner</strong>
+                <strong>{modelLabel} neural planner</strong>
                 <span>runs entirely in this tab</span>
                 <span>no server</span>
               </p>
