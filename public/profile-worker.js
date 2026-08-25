@@ -45,6 +45,12 @@ const SYNTHESIS_VOCABULARY = new Set([
   .forEach((token) => CAPABILITY_VOCABULARY.add(token));
 ["duties", "practitioner", "responsibilities", "scope"].forEach((token) => PROFILE_VOCABULARY.add(token));
 [
+  "award", "awards", "based", "certification", "certifications", "college", "competition",
+  "competitions", "contact", "degree", "education", "email", "employer", "employment",
+  "hobbies", "interest", "interests", "limitation", "limitations", "location", "motivation",
+  "research", "study", "university", "weakness", "weaknesses",
+].forEach((token) => PROFILE_VOCABULARY.add(token));
+[
   "align", "aligned", "approach", "bind", "binds", "bridge", "coherent", "concepts",
   "consistency", "consistent", "connects", "echo", "echoes", "idea", "ideas",
   "interconnect", "interconnects", "line", "method", "narrative", "related", "repeat",
@@ -57,6 +63,11 @@ const INTENT_VOCABULARY = [...new Set([
   "through", "work", "what", "does", "is", "he", "his",
 ])];
 const CONCRETE_TYPES = new Set(["achievement", "claim", "contribution", "project", "repository", "workflow"]);
+const PERSONA_TYPES = new Set([
+  "certification", "community", "contact", "education", "experience", "footprint",
+  "interest", "limitation", "origin", "profile", "recognition", "research", "strength",
+  "transformation",
+]);
 const GENERIC_QUERY_TERMS = new Set([
   "across", "any", "build", "built", "can", "demonstrate", "demonstrated", "designed",
   "evidence", "experience", "find", "give", "has", "have", "public", "record", "records",
@@ -203,6 +214,26 @@ function comparable(value) {
   return String(value || "").toLowerCase().replace(/[^a-z0-9]+/g, "");
 }
 
+function personaIntent(value) {
+  const lowered = String(value || "").toLowerCase();
+  if (/\b(?:age|how old|birthday|date of birth|marital|married|religion|politics|political|salary|nationality|family)\b/.test(lowered)) return "unsupported-personal";
+  if (/\b(?:contact|email|e-mail|reach|hire|recruit|get in touch|talk to)\b/.test(lowered)) return "contact";
+  if (/\b(?:full|complete|legal)\s+name\b|\bwhat(?:'s| is)\s+(?:rohit(?:'s)?|his)\s+name\b/.test(lowered)) return "name";
+  if (/\bwhere\b.{0,25}\b(?:based|located|work|live)\b|\b(?:location|based in)\b/.test(lowered)) return "location";
+  if (/\b(?:education|degree|degrees|university|college|studied|study|academic background|qualification|qualifications)\b/.test(lowered)) return "education";
+  if (/\b(?:weakness|weaknesses|shortcoming|shortcomings|development area|areas to improve|could improve|needs? to improve|limitations?|large team|team leadership)\b/.test(lowered)) return "limitations";
+  if (/\b(?:hobby|hobbies|interest|interests|interested|motivation|motivates|drives|passionate|outside work|care about)\b/.test(lowered)) return "interests";
+  if (/\b(?:competition|competitions|awards?|recognition|hackathon|certification|certifications|honours?|honors?|won|wins)\b/.test(lowered)) return "recognition";
+  if (/\b(?:research background|academic research|thesis|dissertation|eeg)\b/.test(lowered)) return "research";
+  if (/\b(?:github stats|github footprint|public footprint|how many repos|how many repositories|pypi packages|published packages)\b/.test(lowered)) return "footprint";
+  if (/\b(?:work history|career history|professional background|employment|employer|company|current job|current role|professional experience|years? of experience|experience does|how (?:long|many years).{0,25}work|work(?:s|ed)? at|role at|xeal pharma|do for a living)\b/.test(lowered)) return "experience";
+  if (/\b(?:strength|strengths|expertise|good at|best at|strongest skills?|capabilities)\b/.test(lowered)) return "strengths";
+  if (/\b(?:working style|work style|approach to work|kind of engineer)\b/.test(lowered)) return "working-style";
+  if (/\b(?:started|get started|early work|before xeal|origin story|background|community work|leadership|beyond code)\b/.test(lowered)) return "background";
+  if (/\b(?:who (?:exactly )?is|about rohit|describe rohit|profile of rohit|what is rohit like|what does rohit do|what does he do)\b/.test(lowered)) return "general";
+  return "";
+}
+
 function editDistance(left, right) {
   const previous = Array.from({ length: right.length + 1 }, (_, index) => index);
   for (let row = 1; row <= left.length; row += 1) {
@@ -294,6 +325,10 @@ function specificQueryTerms(value) {
 }
 
 function semanticFamilyForQuestion(value, fallback) {
+  const personal = personaIntent(value);
+  if (personal && personal !== "unsupported-personal") {
+    return [personal === "strengths" ? "capability" : "profile_summary", true];
+  }
   const routingValue = String(value || "").replace(/\bprofile owner\b/gi, "owner");
   const queryTerms = terms(routingValue);
   const identityProfile = new Set([
@@ -561,7 +596,7 @@ async function inferText(text, focusStart = 0, focusEnd = null) {
 
 function guardOperation(question, modelOperation) {
   const lowered = question.toLowerCase();
-  if (/\b(private|home address|phone number|personal email|dox|location data)\b/.test(lowered)) return "refuse";
+  if (/\b(private|home address|street address|phone number|mobile number|dox|precise location|location data)\b/.test(lowered)) return "refuse";
   if (/\b(compare|contrast|versus|vs\.?)\b|\bdifference\s+between\b|\bdifferent\s+from\b/.test(lowered)) return "compare";
   if (/\b(add|total|calculate|arithmetic)\b|\bsum\b(?!\s+up)/.test(lowered)) return "aggregate";
   if (/\b(latest|newest|most recent|chronolog\w*|over time|evolution)\b/.test(lowered)) return "timeline";
@@ -578,6 +613,7 @@ function rankDocuments(question, embedding, operation, priorIds = [], specificTe
   const openSourceImpact = (lowered.includes("open-source") || lowered.includes("open source"))
     && /\b(impact|demonstrat\w*|evidence|proof|work)\b/.test(lowered);
   const normalizedQuestion = comparable(question);
+  const personal = personaIntent(question);
   return documents.map((item) => {
     let overlap = 0;
     queryTerms.forEach((token) => { if (item.termSet.has(token)) overlap += 1; });
@@ -595,6 +631,24 @@ function rankDocuments(question, embedding, operation, priorIds = [], specificTe
     } else if (/\b(builder|engineer|persona|identity|profile|who is)\b/.test(lowered)) {
       typeBoost += item.type === "profile" ? 0.42 : 0;
     }
+    const personalTypes = {
+      contact: ["contact"],
+      name: ["profile"],
+      location: ["profile", "experience"],
+      education: ["education"],
+      limitations: ["limitation"],
+      interests: ["interest", "origin"],
+      recognition: ["achievement", "recognition", "certification"],
+      research: ["research", "experience"],
+      footprint: ["footprint"],
+      experience: ["experience", "transformation"],
+      strengths: ["strength", "skill"],
+      "working-style": ["strength", "profile"],
+      background: ["origin", "community", "education", "recognition"],
+      general: ["profile", "experience", "education", "achievement"],
+    }[personal] || [];
+    if (personalTypes.includes(item.type)) typeBoost += 1.15 - personalTypes.indexOf(item.type) * 0.08;
+    else if (personal && PERSONA_TYPES.has(item.type)) typeBoost += 0.08;
     if (/\b(work|project|projects|built|made|example|examples)\b/.test(lowered)) {
       typeBoost += ["project", "contribution"].includes(item.type) ? 0.15 : -0.04;
     }
@@ -662,9 +716,10 @@ function initialCandidates(ranked) {
   return uniqueRecords([...ranked.slice(0, 3), ...skills, ...profile, ...relatedConcrete(skills, ranked, 3)]).slice(0, 8);
 }
 
-function familyCandidates(family, ranked) {
+function familyCandidates(family, ranked, personal = "") {
   const skills = ranked.filter((item) => item.type === "skill").slice(0, 3);
   if (family === "capability") {
+    const strengths = ranked.filter((item) => item.type === "strength").slice(0, 3);
     const topConcrete = ranked.filter((item) => CONCRETE_TYPES.has(item.type)).slice(0, 2);
     const concrete = uniqueRecords([...topConcrete, ...relatedConcrete(skills, ranked, 4)]).slice(0, 4);
     const interleaved = [];
@@ -672,11 +727,12 @@ function familyCandidates(family, ranked) {
       if (skills[index]) interleaved.push(skills[index]);
       if (concrete[index]) interleaved.push(concrete[index]);
     }
-    return uniqueRecords(interleaved).slice(0, 7);
+    return uniqueRecords([...(personal === "strengths" ? strengths : []), ...interleaved]).slice(0, 8);
   }
   if (family === "profile_summary") {
+    const persona = ranked.filter((item) => PERSONA_TYPES.has(item.type)).slice(0, 5);
     const profile = ranked.filter((item) => item.type === "profile").slice(0, 1);
-    return uniqueRecords([...profile, ...skills.slice(0, 2), ...relatedConcrete(skills, ranked, 3)]).slice(0, 7);
+    return uniqueRecords([...persona, ...profile, ...skills.slice(0, 2), ...relatedConcrete(skills, ranked, 2)]).slice(0, 8);
   }
   if (family === "synthesis") {
     const profile = ranked.filter((item) => item.type === "profile").slice(0, 1);
@@ -727,11 +783,132 @@ function renderSource(item) {
     url: item.url || "", proof: item.display_proof || item.proof || "" };
 }
 
+function renderPersonaAnswer(intent, evidence) {
+  const byId = (id) => evidence.find((item) => item.record_id === id);
+  const ofType = (...types) => evidence.filter((item) => types.includes(item.type));
+  const sourced = (answer, items) => ({
+    answer,
+    sources: uniqueRecords(items.filter(Boolean)).map(renderSource),
+  });
+  if (intent === "unsupported-personal") {
+    return { answer: "Rohit's public records do not document that personal detail, and this profile will not infer it.", sources: [] };
+  }
+  if (intent === "contact") {
+    const contact = byId("public-contact") || ofType("contact")[0];
+    return sourced(
+      "For professional enquiries, email Rohit Yelukati Mahendra at mahendrarohittigon@gmail.com. You can also reach him through LinkedIn at linkedin.com/in/ym-rohit or review his work at github.com/ymrohit.",
+      [contact],
+    );
+  }
+  if (intent === "name") {
+    const profile = byId("profile-rohit") || ofType("profile")[0];
+    return sourced("His full name is Rohit Yelukati Mahendra.", [profile]);
+  }
+  if (intent === "location") {
+    const profile = byId("profile-rohit") || ofType("profile")[0];
+    const role = byId("xeal-ai-role") || ofType("experience")[0];
+    return sourced(
+      "Rohit is based in the United Kingdom. His public professional record places his current Xeal Pharma role in Birmingham on a hybrid basis; this profile does not disclose a home address or precise private location.",
+      [profile, role],
+    );
+  }
+  if (intent === "education") {
+    const education = ofType("education").slice(0, 2);
+    return sourced(
+      "Rohit earned an MSc in Artificial Intelligence and Robotics from the University of Hertfordshire, where he studied from January 2020 to March 2022. Before that, he completed a BTech in Computer Science at Vidya Jyothi Institute of Technology from 2015 to 2019.",
+      education,
+    );
+  }
+  if (intent === "experience") {
+    const current = byId("xeal-ai-role") || ofType("experience")[0];
+    const earlier = byId("xeal-python-role") || ofType("experience")[1];
+    const research = byId("hertfordshire-research-role") || ofType("experience")[2];
+    return sourced(
+      "Rohit has more than five years at Xeal Pharma. He joined as a Python Developer in August 2021 and progressed to sole Python / AI Developer, owning AI, automation, OCR, Django, analytics, and operational systems from discovery through production. He also worked as a part-time University of Hertfordshire researcher on CNN-assisted cancer-image annotation and completed Bright Network technology internship experience in 2020.",
+      [current, earlier, research, byId("bright-network-internship")],
+    );
+  }
+  if (intent === "limitations") {
+    const limitation = byId("professional-development-risks") || ofType("limitation")[0];
+    return sourced(
+      "The public evidence cannot honestly establish a personality weakness. The fairest professional development risk is that broad sole-developer ownership can create bus-factor, documentation, delegation, and team-scale challenges unless it is deliberately countered. Also, many high-impact Xeal systems are private, so outsiders cannot independently inspect every production metric or codebase. These are evidence limits and risks, not proven flaws.",
+      [limitation],
+    );
+  }
+  if (intent === "interests") {
+    const interest = byId("professional-interests") || ofType("interest")[0];
+    const origin = byId("early-product-history") || ofType("origin")[0];
+    return sourced(
+      "Publicly, Rohit's interests cluster around small capable models, private local AI, verifier-led systems, multimodal understanding, computer vision, developer tooling, and software that removes friction from real operations. His earlier smart-car, grocery, treasure-scan, and smart-pet prototypes show a long-running interest in hands-on products. Private hobbies and favourite media are not documented, so the profile will not invent them.",
+      [interest, origin],
+    );
+  }
+  if (intent === "recognition") {
+    const docathon = byId("docathon-2026") || ofType("achievement")[0];
+    const buildSmall = byId("build-small-2026") || ofType("recognition")[0];
+    const innovator = byId("young-innovator-2017") || ofType("recognition")[1];
+    const certification = byId("mta-database-fundamentals") || ofType("certification")[0];
+    return sourced(
+      "Rohit's clearest competition win is first place worldwide in the PyTorch Docathon 2026 with 47 points and 19 merged pull requests. He also received T-Hub Young Innovator recognition in 2017 for Pet Me, participated in Hugging Face's Build Small Hackathon 2026, and earned Microsoft's MTA Database Fundamentals certification in 2018. Build Small is recorded as participation, not a win.",
+      [docathon, innovator, buildSmall, certification],
+    );
+  }
+  if (intent === "research") {
+    const eeg = byId("eeg-emotion-research") || ofType("research")[0];
+    const imaging = byId("hertfordshire-research-role") || ofType("experience")[0];
+    const ouroboros = byId("ouroboros-public-results") || ofType("research")[1];
+    return sourced(
+      "Rohit's research spans EEG emotion recognition, medical image annotation, and verifier-guided GPU kernel generation. His MSc work reported 92% valence, 97.5% arousal, and 90% dominance accuracy on the DREAMER setup. At Hertfordshire he built a CNN-assisted tumour annotation workflow, while OUROBOROS studies whether small models can produce compiler-beating Triton kernels under independent correctness and stability gates.",
+      [eeg, imaging, ouroboros],
+    );
+  }
+  if (intent === "footprint") {
+    const github = byId("github-public-footprint") || ofType("footprint")[0];
+    const pypi = byId("pypi-publications") || ofType("footprint")[1];
+    return sourced(
+      "As checked on 25 August 2026, ymrohit has 25 public GitHub repositories, 14 public gists, and 257 contributions in the preceding year. Rohit also publishes three PyPI packages: openscenesense, openscenesense-ollama, and ukpostcodeio. Forks are kept separate from work he authored.",
+      [github, pypi],
+    );
+  }
+  if (intent === "background") {
+    const origin = byId("early-product-history") || ofType("origin")[0];
+    const community = byId("infotsav-community") || ofType("community")[0];
+    const recognition = byId("young-innovator-2017") || ofType("recognition")[0];
+    return sourced(
+      "Rohit's builder story started before his professional AI career. From 2016 onward he made mobile, IoT, computer-vision, and consumer prototypes including a smart car, Find My Grocery, Treasure Scan, Pet Me, and See Me. Pet Me received T-Hub Young Innovator recognition in 2017, and in 2019 he coordinated Hyderabad participation for Infotsav hackathon qualifiers.",
+      [origin, recognition, community],
+    );
+  }
+  if (intent === "strengths" || intent === "working-style") {
+    const strengths = ofType("strength").slice(0, 3);
+    const skills = ofType("skill").slice(0, 2);
+    const concrete = evidence.filter((item) => CONCRETE_TYPES.has(item.type)).slice(0, 2);
+    return sourced(
+      "Rohit's strongest evidenced capabilities are end-to-end ownership, translating messy operational needs into production systems, verifier-led AI design, and cross-domain Python engineering. His technical capability areas span backend platforms, local and multimodal AI, OCR and document intelligence, security evaluation, and regulated pharmaceutical workflows. DAX, OUROBOROS, OpenSceneSense, Crucible, and accepted upstream contributions provide concrete receipts rather than résumé-only claims.",
+      [...strengths, ...skills, ...concrete],
+    );
+  }
+  if (intent === "general") {
+    const profile = byId("profile-rohit") || ofType("profile")[0];
+    const role = byId("xeal-ai-role") || ofType("experience")[0];
+    const education = byId("msc-ai-robotics") || ofType("education")[0];
+    const achievement = byId("docathon-2026") || ofType("achievement")[0];
+    return sourced(
+      "Rohit Yelukati Mahendra is a UK-based Applied AI Engineer and Python developer with more than five years at Xeal Pharma. As the sole Python / AI Developer, he turns operational problems into secure AI, automation, OCR, Django, analytics, and digital-transformation systems. He holds an MSc in Artificial Intelligence and Robotics, publishes open-source AI tooling, and ranked first worldwide in the PyTorch Docathon 2026 with 47 points across 19 merged pull requests.",
+      [profile, role, education, achievement],
+    );
+  }
+  return null;
+}
+
 function renderAnswer(question, operation, status, family, evidence, computed, specificTerms = new Set()) {
   const lowered = question.toLowerCase();
+  const personal = personaIntent(question);
   if (operation === "refuse" || status === "private") {
     return { answer: "I cannot provide private contact or location data. I can answer questions about Rohit's public work instead.", sources: [] };
   }
+  const personalAnswer = renderPersonaAnswer(personal, evidence);
+  if (personalAnswer) return personalAnswer;
   if (status === "insufficient") {
     return { answer: "I cannot support that from Rohit's public records. The profile stays inside evidence it can cite.", sources: [] };
   }
@@ -998,6 +1175,7 @@ async function answerQuestion(id, question, history = "", priorIds = []) {
   const activeHistory = contextual ? safeHistory : "";
   const activePriorIds = contextual ? priorIds : [];
   const modelQuestion = semanticQuery(question);
+  const personal = personaIntent(modelQuestion);
   post("progress", { id, stage: "understanding", text: "understanding the question" });
   const queryText = `QUESTION: ${losslessText(modelQuestion)}\n${activeHistory ? `CONTEXT: ${losslessText(activeHistory)}\n` : ""}`;
   const query = await inferText(queryText);
@@ -1052,7 +1230,9 @@ async function answerQuestion(id, question, history = "", priorIds = []) {
     && (CONCRETE_TYPES.has(item.type) || item.type === "repository-fork"));
   const capabilityIntent = [...terms(modelQuestion)].some((token) => CAPABILITY_VOCABULARY.has(token));
   const profileIntent = [...terms(modelQuestion)].some((token) => PROFILE_VOCABULARY.has(token));
-  const hintedFamily = operation === "lookup" && !exactNamed && !achievementIntent && capabilityIntent
+  const hintedFamily = operation === "lookup" && personal && personal !== "unsupported-personal"
+    ? (personal === "strengths" ? "capability" : "profile_summary")
+    : operation === "lookup" && !exactNamed && !achievementIntent && capabilityIntent
     ? "capability"
     : operation === "lookup" && !exactNamed && !achievementIntent && profileIntent
     ? "profile_summary"
@@ -1068,7 +1248,7 @@ async function answerQuestion(id, question, history = "", priorIds = []) {
       ...ranked.filter((item) => !["skill", "profile"].includes(item.type)),
     ]).slice(0, 6);
   } else if (hintedFamily) {
-    candidates = familyCandidates(hintedFamily, ranked);
+    candidates = familyCandidates(hintedFamily, ranked, personal);
   } else {
     candidates = initialCandidates(ranked);
   }
@@ -1090,7 +1270,7 @@ async function answerQuestion(id, question, history = "", priorIds = []) {
     const namedConcrete = evidence.some((item) => item.titleExact
       && (CONCRETE_TYPES.has(item.type) || item.type === "repository-fork"));
     if (status === "grounded" && !namedConcrete && ["capability", "profile_summary", "synthesis"].includes(family)) {
-      candidates = familyCandidates(family, ranked);
+      candidates = familyCandidates(family, ranked, personal);
       computed = toolResult(operation, candidates);
       evidence = compactEvidence(modelQuestion, activeHistory, candidates, computed);
       parts = sourceParts(modelQuestion, activeHistory, evidence, computed);
@@ -1107,6 +1287,11 @@ async function answerQuestion(id, question, history = "", priorIds = []) {
   if (/\b(achievement|win|winner|rank|place|accomplishment|strongest\s+verified)\b/i.test(modelQuestion)
     && evidence.some((item) => item.type === "achievement")) {
     family = "achievement";
+  }
+  if (personal && personal !== "unsupported-personal" && operation === "lookup"
+    && evidence.some((item) => PERSONA_TYPES.has(item.type) || item.type === "achievement")) {
+    status = "grounded";
+    family = personal === "strengths" ? "capability" : "profile_summary";
   }
   const exactMatch = evidence.some((item) => item.titleExact);
   const refuseSpecific = shouldRefuseSpecific(

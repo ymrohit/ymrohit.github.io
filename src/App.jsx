@@ -192,8 +192,8 @@ export function App() {
       <a className="skip-link" href="#content">Skip to content</a>
 
       <header className="site-header">
-        <a className="wordmark" href="#content" aria-label="Rohit Mahendra, home">
-          <span>Rohit Mahendra</span>
+        <a className="wordmark" href="#content" aria-label="Rohit Yelukati Mahendra, home">
+          <span>Rohit Yelukati Mahendra</span>
           <small>AI systems engineer</small>
         </a>
         <nav aria-label="Primary navigation">
@@ -226,6 +226,7 @@ export function App() {
             </div>
             <p>Building small, inspectable intelligence and the systems that hold it accountable.</p>
             <div className="identity-links">
+              <a href={`mailto:${profile.email}`}>Email</a>
               <a href={profile.linkedinUrl} target="_blank" rel="noreferrer">LinkedIn</a>
               <a href={profile.coffeeUrl} target="_blank" rel="noreferrer">Coffee</a>
             </div>
@@ -251,8 +252,8 @@ export function App() {
           <div className="section-intro">
             <p className="section-number">01 / Live profile</p>
             <div>
-              <h2>Don’t browse my résumé.<br /><em>Question the work.</em></h2>
-              <p>A distilled neural planner reads my full public record, connects evidence across projects, and answers with receipts.</p>
+              <h2>Don’t browse my résumé.<br /><em>Ask the evidence.</em></h2>
+              <p>A distilled neural planner reads my public career, projects, research, achievements, and builder history, then answers with receipts.</p>
             </div>
           </div>
 
@@ -272,14 +273,14 @@ export function App() {
             </div>
 
             <form className="command-line" onSubmit={(event) => { event.preventDefault(); submitPrompt(); }}>
-              <label htmlFor="profile-prompt">Ask anything about Rohit’s public work</label>
+              <label htmlFor="profile-prompt">Ask anything about Rohit’s public profile</label>
               <div>
                 <input
                   id="profile-prompt"
                   value={query}
                   onChange={(event) => setQuery(event.target.value)}
                   onFocus={activateRouter}
-                  placeholder="What has he built around browser-local AI?"
+                  placeholder="Who is Rohit, and what is he strongest at?"
                   autoComplete="off"
                 />
                 <button type="submit" aria-label="Ask the local profile" disabled={commandBusy || !query.trim()}>
@@ -340,7 +341,7 @@ export function App() {
       </main>
 
       <footer className="site-footer">
-        <div><strong>Rohit Mahendra</strong><span>AI systems that prove their work.</span></div>
+        <div><strong>Rohit Yelukati Mahendra</strong><span>AI systems that prove their work.</span></div>
         <p>Private by construction: no analytics, cookies, or prompt transmission.</p>
         <a href="https://github.com/ymrohit/ymrohit.github.io" target="_blank" rel="noreferrer">
           Source <ArrowUpRightIcon size={11} />
