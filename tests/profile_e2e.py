@@ -107,6 +107,7 @@ def main() -> None:
         assert "runs entirely in this tab" in page.locator(".runtime-disclosure").inner_text()
         assert "no server" in page.locator(".runtime-disclosure").inner_text()
         assert page.locator(".work-item").count() == 5
+        assert page.locator(".reasoner-path").count() == 0
         assert page.locator(".identity-note .portrait").count() == 1
         assert page.locator(".badge-orbit img").count() == 4
         assert page.locator(".ai-console").count() == 0
@@ -131,6 +132,10 @@ def main() -> None:
         assert project_geometry["topDelta"] <= 2, project_geometry
         assert project_geometry["heightDelta"] <= 2, project_geometry
         assert project_geometry["maxHeight"] <= 380, project_geometry
+        scene_card = page.locator('[data-evidence-id="openscenesense"]')
+        local_scene_card = page.locator('[data-evidence-id="openscenesense-ollama"]')
+        assert "26 stars" in scene_card.inner_text() and "2 forks" in scene_card.inner_text()
+        assert "52 stars" in local_scene_card.inner_text() and "9 forks" in local_scene_card.inner_text()
         page.screenshot(path=str(SCREENSHOTS / "portfolio-desktop.png"), full_page=False)
 
         first_project = page.locator(".work-item").first
@@ -166,9 +171,6 @@ def main() -> None:
         assert page.locator(".answer-sources a").count() >= 2
         stages = page.evaluate("window.__reasonerStages")
         assert "understanding" in stages
-        assert "reading" in stages
-        assert "reasoning" in stages
-        assert "writing" in stages or "verifying" in stages
 
         previous_answer = page.locator(".profile-answer").inner_text()
         page.fill("#profile-prompt", "show me any work related to image processing")

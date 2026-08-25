@@ -7,17 +7,12 @@ import {
   MarkGithubIcon,
   PaperAirplaneIcon,
   PlusIcon,
+  RepoForkedIcon,
+  StarIcon,
   XIcon,
 } from "@primer/octicons-react";
 
 import { byId, evidence, profile, selectedWork, suggestedPrompts } from "./data";
-
-const runtimeSteps = [
-  { id: "understanding", label: "Understand" },
-  { id: "reading", label: "Retrieve" },
-  { id: "reasoning", label: "Connect" },
-  { id: "verifying", label: "Verify" },
-];
 
 const achievementBadges = [
   { src: "./assets/achievement-pair.png", label: "GitHub Pair Extraordinaire" },
@@ -65,6 +60,15 @@ function ProjectRow({ item, active, onOpen }) {
         </span>
         <strong>{item.title}</strong>
         <span className="work-summary">{item.summary}</span>
+        {item.githubStats && (
+          <span
+            className="work-popularity"
+            aria-label={`${item.githubStats.stars} GitHub stars and ${item.githubStats.forks} forks`}
+          >
+            <span><StarIcon size={14} /> {item.githubStats.stars} stars</span>
+            <span><RepoForkedIcon size={14} /> {item.githubStats.forks} forks</span>
+          </span>
+        )}
         <span className="work-action">
           Explore <PlusIcon size={16} />
         </span>
@@ -104,7 +108,6 @@ export function App() {
   const workerRef = useRef(null);
   const pendingRef = useRef(new Map());
   const requestIdRef = useRef(0);
-  const activityQueueRef = useRef(Promise.resolve());
   const inputRef = useRef(null);
 
   useEffect(() => {
@@ -144,12 +147,7 @@ export function App() {
       const message = event.data || {};
       if (message.type === "progress") {
         if (message.stage === "loading") setRouterStatus(message.text || "loading local AI");
-        if (message.id) {
-          activityQueueRef.current = activityQueueRef.current.then(() => new Promise((resolve) => {
-            setActivity({ stage: message.stage, text: message.text });
-            window.setTimeout(resolve, 180);
-          }));
-        }
+        if (message.id) setActivity({ stage: message.stage, text: message.text });
       } else if (message.type === "ready") {
         if (message.bundleBytes) setModelLabel(`${(message.bundleBytes / 1_000_000).toFixed(2)} MB`);
         setRouterState("ready");
@@ -157,10 +155,8 @@ export function App() {
       } else if (message.type === "answered") {
         const pending = pendingRef.current.get(message.id);
         if (pending) {
-          activityQueueRef.current.then(() => {
-            pendingRef.current.delete(message.id);
-            pending.resolve(message);
-          });
+          pendingRef.current.delete(message.id);
+          pending.resolve(message);
         }
       } else if (message.type === "error") {
         const pending = pendingRef.current.get(message.id);
@@ -185,7 +181,6 @@ export function App() {
   function askProfile(text, history, priorIds) {
     return new Promise((resolve, reject) => {
       const id = ++requestIdRef.current;
-      activityQueueRef.current = Promise.resolve();
       pendingRef.current.set(id, { resolve, reject });
       workerRef.current.postMessage({ type: "ask", id, question: text, history, priorIds });
     });
@@ -232,11 +227,6 @@ export function App() {
   }
 
   const commandBusy = Boolean(activity);
-  const stageByActivity = { understanding: 0, reading: 1, reasoning: 2, writing: 3, verifying: 3 };
-  const stageIndex = activity
-    ? (stageByActivity[activity.stage] ?? 0)
-    : commandResult?.verified ? runtimeSteps.length : -1;
-
   return (
     <div className="site-shell">
       <a className="skip-link" href="#content">Skip to content</a>
@@ -350,17 +340,6 @@ export function App() {
                   {routerState === "loading" ? "loading" : "load local AI"}
                 </button>
               )}
-            </div>
-
-            <div className="reasoner-path" aria-label="Live reasoning path">
-              {runtimeSteps.map((step, index) => {
-                const state = index < stageIndex ? "done" : index === stageIndex ? "active" : "idle";
-                return (
-                  <span key={step.id} data-state={state}>
-                    <i /> {step.label}
-                  </span>
-                );
-              })}
             </div>
 
             <div className="prompt-starters" aria-label="Suggested questions">

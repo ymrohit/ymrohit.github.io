@@ -93,8 +93,9 @@ export const evidence = [
     detail:
       "OpenSceneSense v1.2 keeps frame selection and budget control local, then uses managed vision providers to return typed summaries, events, telemetry, and resumable stage results through a strict shared JSON Schema.",
     metric: "V1.2 · PYTHON",
-    secondaryMetric: "MANAGED PROVIDERS",
+    secondaryMetric: "26 STARS · 2 FORKS",
     tags: ["multimodal", "python", "ai-systems"],
+    githubStats: { stars: 26, forks: 2 },
     sourceUrl: "https://github.com/ymrohit/openscenesense",
     linkLabel: "Open repository",
     icon: "play",
@@ -112,8 +113,9 @@ export const evidence = [
     detail:
       "The Ollama edition adds model preflight, native structured output, local telemetry, resumable caches, and optional Whisper audio. Its default video install does not require Torch.",
     metric: "V1.2 · LOCAL",
-    secondaryMetric: "52 STARS",
+    secondaryMetric: "52 STARS · 9 FORKS",
     tags: ["multimodal", "local-ai", "python"],
+    githubStats: { stars: 52, forks: 9 },
     sourceUrl: "https://github.com/ymrohit/openscenesense-ollama",
     linkLabel: "Open repository",
     icon: "terminal",
