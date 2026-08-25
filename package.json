@@ -1,0 +1,21 @@
+{
+  "name": "rohit-ai-github-profile",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "prepare:runtime": "node scripts/copy-ort-assets.mjs",
+    "dev": "npm run prepare:runtime && vite",
+    "build": "npm run prepare:runtime && vite build && node scripts/prepare-sites-build.mjs",
+    "preview": "vite preview",
+    "test:sites": "node --test tests/sites-worker.test.mjs"
+  },
+  "dependencies": {
+    "@primer/octicons-react": "^19.33.0",
+    "@vitejs/plugin-react": "5.0.4",
+    "onnxruntime-web": "^1.22.0",
+    "react": "19.2.0",
+    "react-dom": "19.2.0",
+    "vite": "6.4.2"
+  }
+}

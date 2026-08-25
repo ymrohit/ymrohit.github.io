@@ -1,0 +1,12 @@
+node_modules/
+dist/
+screenshots/
+public/vendor/
+profile-readme/
+reference.png
+AGENTS.md
+design-qa.md
+.DS_Store
+*.log
+__pycache__/
+*.pyc
