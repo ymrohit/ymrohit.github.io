@@ -60,8 +60,7 @@ def main() -> None:
     with preview(), sync_playwright() as playwright:
         browser = playwright.chromium.launch(headless=True, executable_path="/usr/bin/google-chrome")
         page = browser.new_page(viewport={"width": 1280, "height": 900})
-        page.goto(URL, wait_until="networkidle")
-        page.get_by_role("button", name="load local AI").click()
+        page.goto(URL, wait_until="domcontentloaded")
         page.wait_for_function(
             "document.querySelector('.router-state.ready')?.textContent.includes('93 public records')",
             timeout=120_000,

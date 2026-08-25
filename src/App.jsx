@@ -121,7 +121,13 @@ export function App() {
     return () => observer.disconnect();
   }, []);
 
-  useEffect(() => () => workerRef.current?.terminate(), []);
+  useEffect(() => {
+    activateRouter();
+    return () => {
+      workerRef.current?.terminate();
+      workerRef.current = null;
+    };
+  }, []);
 
   const workItems = useMemo(
     () => [...selectedWork, "openscenesense-ollama"].map(byId).filter(Boolean),

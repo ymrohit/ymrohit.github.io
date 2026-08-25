@@ -91,7 +91,11 @@ def main() -> None:
             if message.type == "error"
             else None,
         )
-        page.goto(URL, wait_until="networkidle")
+        page.goto(URL, wait_until="domcontentloaded")
+        page.wait_for_function(
+            "['loading', 'ready'].some(state => document.querySelector('.router-state')?.classList.contains(state))",
+            timeout=10_000,
+        )
 
         assert "I build AI systems" in page.locator(".hero-copy h1").inner_text()
         assert page.locator(".wordmark span").inner_text() == "Rohit Yelukati Mahendra"
@@ -111,6 +115,22 @@ def main() -> None:
         assert page.evaluate("document.documentElement.scrollWidth <= document.documentElement.clientWidth")
         assert page.evaluate("parseFloat(getComputedStyle(document.querySelector('.hero-intro')).fontSize) >= 18")
         assert page.evaluate("parseFloat(getComputedStyle(document.querySelector('.work-summary')).fontSize) >= 14")
+        project_geometry = page.evaluate("""
+          () => {
+            const scene = document.querySelector('[data-evidence-id="openscenesense"]');
+            const local = document.querySelector('[data-evidence-id="openscenesense-ollama"]');
+            const sceneRect = scene.getBoundingClientRect();
+            const localRect = local.getBoundingClientRect();
+            return {
+              topDelta: Math.abs(sceneRect.top - localRect.top),
+              heightDelta: Math.abs(sceneRect.height - localRect.height),
+              maxHeight: Math.max(sceneRect.height, localRect.height),
+            };
+          }
+        """)
+        assert project_geometry["topDelta"] <= 2, project_geometry
+        assert project_geometry["heightDelta"] <= 2, project_geometry
+        assert project_geometry["maxHeight"] <= 380, project_geometry
         page.screenshot(path=str(SCREENSHOTS / "portfolio-desktop.png"), full_page=False)
 
         first_project = page.locator(".work-item").first
@@ -120,7 +140,6 @@ def main() -> None:
         first_project.get_by_role("button", name="Close CRUCIBLE STUDIO").click()
         assert "is-open" not in (first_project.get_attribute("class") or "")
 
-        page.get_by_role("button", name="load local AI").click()
         page.wait_for_function(
             "document.querySelector('.router-state.ready')?.textContent.includes('93 public records')",
             timeout=120_000,
@@ -292,7 +311,11 @@ def main() -> None:
         assert page.locator(".answer-sources").count() == 0
 
         page.set_viewport_size({"width": 390, "height": 844})
-        page.goto(URL, wait_until="networkidle")
+        page.goto(URL, wait_until="domcontentloaded")
+        page.wait_for_function(
+            "['loading', 'ready'].some(state => document.querySelector('.router-state')?.classList.contains(state))",
+            timeout=10_000,
+        )
         assert page.evaluate("document.documentElement.scrollWidth <= document.documentElement.clientWidth")
         assert page.locator(".command-line").is_visible()
         reveal_all(page)
