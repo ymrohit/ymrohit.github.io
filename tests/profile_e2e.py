@@ -24,7 +24,7 @@ def reveal_all(page) -> None:
     for selector in (".achievement-band", ".reasoner-section", ".work-section", ".thesis-section"):
         page.locator(selector).scroll_into_view_if_needed()
         page.wait_for_timeout(180)
-    page.locator(".hero").scroll_into_view_if_needed()
+    page.evaluate("window.scrollTo(0, 0)")
     page.wait_for_timeout(180)
 
 
@@ -103,12 +103,22 @@ def main() -> None:
         assert "runs entirely in this tab" in page.locator(".runtime-disclosure").inner_text()
         assert "no server" in page.locator(".runtime-disclosure").inner_text()
         assert page.locator(".work-item").count() == 5
-        assert page.locator(".identity-note img").count() == 1
+        assert page.locator(".identity-note .portrait").count() == 1
+        assert page.locator(".badge-orbit img").count() == 4
         assert page.locator(".ai-console").count() == 0
         assert page.locator(".command-line").count() == 1
         assert page.locator(".profile-tabs, .readme-card, .pinned-card").count() == 0
         assert page.evaluate("document.documentElement.scrollWidth <= document.documentElement.clientWidth")
+        assert page.evaluate("parseFloat(getComputedStyle(document.querySelector('.hero-intro')).fontSize) >= 18")
+        assert page.evaluate("parseFloat(getComputedStyle(document.querySelector('.work-summary')).fontSize) >= 14")
         page.screenshot(path=str(SCREENSHOTS / "portfolio-desktop.png"), full_page=False)
+
+        first_project = page.locator(".work-item").first
+        first_project.locator(".work-row").click()
+        assert first_project.get_attribute("class") and "is-open" in first_project.get_attribute("class")
+        assert first_project.locator(".inline-receipt").is_visible()
+        first_project.get_by_role("button", name="Close CRUCIBLE STUDIO").click()
+        assert "is-open" not in (first_project.get_attribute("class") or "")
 
         page.get_by_role("button", name="load local AI").click()
         page.wait_for_function(

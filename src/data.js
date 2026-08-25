@@ -4,7 +4,7 @@ export const profile = {
   tagline: "I build AI systems that prove their work.",
   descriptor: "PYTHON · AI SYSTEMS · OPEN SOURCE",
   summary:
-    "I am a UK-based Applied AI Engineer turning operational problems into secure AI, automation, and open-source systems people can inspect, run, and trust.",
+    "I turn operational problems into secure AI, automation, and open-source systems people can inspect and trust.",
   email: "mahendrarohittigon@gmail.com",
   githubUrl: "https://github.com/ymrohit",
   linkedinUrl: "https://www.linkedin.com/in/ym-rohit",
@@ -167,10 +167,10 @@ export const modeContent = {
 };
 
 export const suggestedPrompts = [
-  "Give me Rohit's 30-second proof",
-  "Why is the referee the product?",
-  "Show me browser-local AI work",
-  "Switch to recruiter mode",
+  "Who is Rohit?",
+  "What is he strongest at?",
+  "What has he won?",
+  "How can I contact him?",
 ];
 
 export function byId(id) {
