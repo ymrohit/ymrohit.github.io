@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import contextlib
+import os
 import subprocess
 import time
 import urllib.request
@@ -14,7 +15,7 @@ from playwright.sync_api import sync_playwright
 
 ROOT = Path(__file__).resolve().parents[1]
 PORT = 4175
-URL = f"http://127.0.0.1:{PORT}/"
+URL = os.environ.get("PROFILE_URL", f"http://127.0.0.1:{PORT}/")
 SCREENSHOTS = ROOT / "screenshots"
 
 

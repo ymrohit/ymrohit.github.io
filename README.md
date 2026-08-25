@@ -34,3 +34,5 @@ python tests/profile_e2e.py
 ```
 
 The Chrome integration test verifies real model loading, live reasoning stages, contributions, image-processing work, cross-project browser-AI synthesis, source receipts, private-data refusal, and mobile layout.
+
+Set `PROFILE_URL=https://ymrohit.github.io/` to run the same suite against the deployed site.
