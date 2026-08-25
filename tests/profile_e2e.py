@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""End-to-end browser proof for the local AI GitHub-profile prototype."""
+"""End-to-end browser proof for Rohit's browser-local AI portfolio."""
 
 from __future__ import annotations
 
@@ -17,6 +17,15 @@ ROOT = Path(__file__).resolve().parents[1]
 PORT = 4175
 URL = os.environ.get("PROFILE_URL", f"http://127.0.0.1:{PORT}/")
 SCREENSHOTS = ROOT / "screenshots"
+
+
+def reveal_all(page) -> None:
+    """Exercise scroll-triggered entry states before a full-page capture."""
+    for selector in (".achievement-band", ".reasoner-section", ".work-section", ".thesis-section"):
+        page.locator(selector).scroll_into_view_if_needed()
+        page.wait_for_timeout(180)
+    page.locator(".hero").scroll_into_view_if_needed()
+    page.wait_for_timeout(180)
 
 
 @contextlib.contextmanager
@@ -84,21 +93,24 @@ def main() -> None:
         )
         page.goto(URL, wait_until="networkidle")
 
-        assert page.locator(".hero-copy h2").inner_text() == "Hi, I’m Rohit."
-        assert page.locator(".identity-copy strong").inner_text() == "Rohit Mahendra"
-        assert "#1 worldwide" in page.locator(".docathon-line").inner_text()
-        assert "47 points · 19 merged PRs" in page.locator(".docathon-line").inner_text()
+        assert "I build AI systems" in page.locator(".hero-copy h1").inner_text()
+        assert page.locator(".wordmark span").inner_text() == "Rohit Mahendra"
+        assert "#1" in page.locator(".achievement-band").inner_text()
+        assert "worldwide" in page.locator(".achievement-band").inner_text().lower()
+        assert "47" in page.locator(".achievement-band").inner_text()
+        assert "19" in page.locator(".achievement-band").inner_text()
         assert "9.73 MB neural planner" in page.locator(".runtime-disclosure").inner_text()
         assert "runs entirely in this tab" in page.locator(".runtime-disclosure").inner_text()
         assert "no server" in page.locator(".runtime-disclosure").inner_text()
-        assert page.locator(".work-item").count() == 4
-        assert page.locator(".achievement-row img").count() == 4
+        assert page.locator(".work-item").count() == 5
+        assert page.locator(".identity-note img").count() == 1
         assert page.locator(".ai-console").count() == 0
         assert page.locator(".command-line").count() == 1
+        assert page.locator(".profile-tabs, .readme-card, .pinned-card").count() == 0
         assert page.evaluate("document.documentElement.scrollWidth <= document.documentElement.clientWidth")
-        page.screenshot(path=str(SCREENSHOTS / "prototype-desktop.png"), full_page=False)
+        page.screenshot(path=str(SCREENSHOTS / "portfolio-desktop.png"), full_page=False)
 
-        page.get_by_role("button", name="load model").click()
+        page.get_by_role("button", name="load local AI").click()
         page.wait_for_function(
             "document.querySelector('.router-state.ready')?.textContent.includes('67 public records')",
             timeout=120_000,
@@ -121,7 +133,7 @@ def main() -> None:
         contribution_answer = page.locator(".profile-answer").inner_text()
         assert "accepted upstream" in contribution_answer, contribution_answer
         assert any(name in contribution_answer for name in ("AutoGPT", "PyTorch", "ExecuTorch", "SteadyDancer"))
-        assert "verified in this tab" in contribution_answer
+        assert "verified here" in contribution_answer
         assert page.locator(".answer-sources a").count() >= 2
         stages = page.evaluate("window.__reasonerStages")
         assert "understanding" in stages
@@ -152,7 +164,8 @@ def main() -> None:
         assert "recurring thread" in browser_answer, browser_answer
         assert any(name in browser_answer for name in ("Universal Site Router", "Personalized Browser LLM", "Browser AI Portfolio"))
         assert page.locator(".answer-sources a, .answer-sources .source-label").count() >= 2
-        page.screenshot(path=str(SCREENSHOTS / "prototype-ai-open.png"), full_page=True)
+        reveal_all(page)
+        page.screenshot(path=str(SCREENSHOTS / "portfolio-ai-open.png"), full_page=True)
 
         page.fill("#profile-prompt", "show me Rohit's private customer addresses")
         page.press("#profile-prompt", "Enter")
@@ -166,7 +179,8 @@ def main() -> None:
         page.goto(URL, wait_until="networkidle")
         assert page.evaluate("document.documentElement.scrollWidth <= document.documentElement.clientWidth")
         assert page.locator(".command-line").is_visible()
-        page.screenshot(path=str(SCREENSHOTS / "prototype-mobile.png"), full_page=True)
+        reveal_all(page)
+        page.screenshot(path=str(SCREENSHOTS / "portfolio-mobile.png"), full_page=True)
 
         browser.close()
         if page_errors:

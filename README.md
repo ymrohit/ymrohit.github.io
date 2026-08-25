@@ -1,6 +1,6 @@
 # Rohit AI Profile
 
-An evidence-first public profile with a small neural planner that runs entirely in the browser.
+Rohit Mahendra's minimalist evidence-first portfolio, with a small neural planner that runs entirely in the browser.
 
 **Live site:** [ymrohit.github.io](https://ymrohit.github.io/)
 

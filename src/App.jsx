@@ -1,54 +1,16 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
+  ArrowDownIcon,
   ArrowUpRightIcon,
-  BookIcon,
-  BriefcaseIcon,
-  ClockIcon,
-  CodeIcon,
-  CpuIcon,
-  LinkIcon,
   MarkGithubIcon,
   PaperAirplaneIcon,
-  PlayIcon,
-  ProjectIcon,
-  RepoIcon,
-  ShieldCheckIcon,
-  SparklesFillIcon,
-  StarIcon,
-  TerminalIcon,
-  TrophyIcon,
 } from "@primer/octicons-react";
 
-import { byId, evidence, pinnedIds, profile, selectedWork } from "./data";
-
-const achievements = [
-  { src: "achievement-yolo.png", name: "YOLO", detail: "merged without review" },
-  { src: "achievement-starstruck.png", name: "Starstruck", detail: "public work earned stars" },
-  { src: "achievement-pair.png", name: "Pair Extraordinaire", detail: "coauthored merged work" },
-  { src: "achievement-quickdraw.png", name: "Quickdraw", detail: "fast issue resolution" },
-];
-
-const iconMap = {
-  trophy: TrophyIcon,
-  shield: ShieldCheckIcon,
-  cpu: CpuIcon,
-  sparkles: SparklesFillIcon,
-  play: PlayIcon,
-  terminal: TerminalIcon,
-};
-
-function EvidenceIcon({ name, size = 18 }) {
-  const Icon = iconMap[name] || CodeIcon;
-  return <Icon size={size} />;
-}
+import { byId, evidence, profile, selectedWork } from "./data";
 
 function InlineReceipt({ item }) {
   return (
     <div className="inline-receipt" aria-live="polite">
-      <div className="receipt-heading">
-        <span><i /> PUBLIC PROJECT RECEIPT</span>
-      </div>
-
       <p>{item.detail}</p>
       <div className="receipt-proof">
         <strong>{item.metric}</strong>
@@ -58,15 +20,14 @@ function InlineReceipt({ item }) {
             {item.linkLabel} <ArrowUpRightIcon size={13} />
           </a>
         ) : (
-          <span className="local-proof">model served from this page</span>
+          <span className="local-proof">running on this page</span>
         )}
       </div>
-      <small className="receipt-note">Click again to close.</small>
     </div>
   );
 }
 
-function ProjectRow({ item, active, onOpen }) {
+function ProjectRow({ item, index, active, onOpen }) {
   return (
     <article className={`work-item ${active ? "is-open" : ""}`} data-evidence-id={item.id}>
       <button
@@ -75,43 +36,41 @@ function ProjectRow({ item, active, onOpen }) {
         onClick={() => onOpen(item.id)}
         aria-expanded={active}
       >
-        <span className="work-icon"><EvidenceIcon name={item.icon} /></span>
+        <span className="work-index">{String(index + 1).padStart(2, "0")}</span>
         <span className="work-copy">
+          <small>{item.eyebrow}</small>
           <strong>{item.title}</strong>
-          <small>{item.summary}</small>
+          <span>{item.summary}</span>
         </span>
         <span className="work-metric">{item.metric}</span>
+        <span className="work-toggle" aria-hidden="true">{active ? "−" : "+"}</span>
       </button>
       <div className="work-expansion">
-        <div>
-          {active && <InlineReceipt item={item} />}
-        </div>
+        <div>{active && <InlineReceipt item={item} />}</div>
       </div>
     </article>
   );
 }
 
-function PinnedCard({ item }) {
-  const href = item.sourceUrl || "#local-router";
+function SourceReceipts({ sources }) {
+  if (!sources?.length) return null;
   return (
-    <article className="pinned-card">
-      <a className="pinned-heading" href={href} target={item.sourceUrl ? "_blank" : undefined} rel="noreferrer">
-        <RepoIcon size={16} />
-        <span>{item.title.toLowerCase().replaceAll(" ", "-")}</span>
-        <small>Public</small>
-      </a>
-      <p>{item.summary}</p>
-      <div className="pinned-meta">
-        <span><i className="language-dot" /> Python</span>
-        <span><StarIcon size={14} /> {item.id === "openscenesense-ollama" ? "52" : item.id === "universal-router" ? "local" : "proof"}</span>
-      </div>
-    </article>
+    <div className="answer-sources" aria-label="Public sources">
+      <span>Evidence</span>
+      {sources.map((source) => source.url ? (
+        <a href={source.url} target="_blank" rel="noreferrer" key={source.id}>
+          {source.title.replace(/[—–]/g, "-")} <ArrowUpRightIcon size={11} />
+        </a>
+      ) : (
+        <span className="source-label" key={source.id}>{source.title.replace(/[—–]/g, "-")}</span>
+      ))}
+    </div>
   );
 }
 
 export function App() {
   const [routerState, setRouterState] = useState("idle");
-  const [routerStatus, setRouterStatus] = useState("not loaded");
+  const [routerStatus, setRouterStatus] = useState("ready when you are");
   const [query, setQuery] = useState("");
   const [activeId, setActiveId] = useState(null);
   const [activity, setActivity] = useState(null);
@@ -122,10 +81,25 @@ export function App() {
   const requestIdRef = useRef(0);
 
   useEffect(() => {
-    return () => workerRef.current?.terminate();
+    const observer = new IntersectionObserver(
+      (entries) => entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        }
+      }),
+      { threshold: 0.12 },
+    );
+    document.querySelectorAll("[data-reveal]").forEach((node) => observer.observe(node));
+    return () => observer.disconnect();
   }, []);
 
-  const workItems = useMemo(() => selectedWork.map(byId).filter(Boolean), []);
+  useEffect(() => () => workerRef.current?.terminate(), []);
+
+  const workItems = useMemo(
+    () => [...selectedWork, "openscenesense-ollama"].map(byId).filter(Boolean),
+    [],
+  );
 
   function activateRouter() {
     if (routerState === "loading" || routerState === "ready") return;
@@ -140,7 +114,7 @@ export function App() {
         if (message.id) setActivity({ stage: message.stage, text: message.text });
       } else if (message.type === "ready") {
         setRouterState("ready");
-        setRouterStatus(`ready · ${message.records} public records`);
+        setRouterStatus(`online · ${message.records} public records`);
       } else if (message.type === "answered") {
         const pending = pendingRef.current.get(message.id);
         if (pending) {
@@ -169,18 +143,15 @@ export function App() {
     });
   }
 
-  function openEvidence(id) {
-    setActiveId((current) => current === id ? null : id);
-  }
-
   async function submitPrompt() {
     const prompt = query.trim();
     if (!prompt) return;
     if (routerState !== "ready") {
       setCommandResult({
-        answer: "Load the 9.73 MB local AI first. It runs in this tab and calls no paid API.",
+        answer: "The local model is still loading. Your question stays in this browser.",
         sources: [],
       });
+      activateRouter();
       return;
     }
 
@@ -190,21 +161,23 @@ export function App() {
     const history = previousTurn
       ? `Earlier question: ${previousTurn.question.slice(0, 120)} Earlier answer: ${previousTurn.answer.slice(0, 260)}`
       : "";
-    const priorIds = conversation.at(-1)?.sources?.map((source) => source.id) || [];
+    const priorIds = previousTurn?.sources?.map((source) => source.id) || [];
     try {
       const decision = await askProfile(prompt, history, priorIds);
       setCommandResult(decision);
       setConversation((current) => [...current, {
-        question: prompt, answer: decision.answer, sources: decision.sources,
+        question: prompt,
+        answer: decision.answer,
+        sources: decision.sources,
       }].slice(-3));
-      setRouterStatus(`ready · ${decision.corpusSize} public records`);
+      setRouterStatus(`online · ${decision.corpusSize} public records`);
       setActivity(null);
     } catch {
       setRouterState("error");
       setRouterStatus("local runtime unavailable");
       setActivity(null);
       setCommandResult({
-        answer: "The browser runtime stopped. No remote fallback was called, and the static public evidence remains available.",
+        answer: "The browser runtime stopped. No remote fallback was called, and the public evidence remains available below.",
         sources: [],
       });
     }
@@ -214,169 +187,161 @@ export function App() {
 
   return (
     <div className="site-shell">
-      <a className="skip-link" href="#overview">Skip to profile</a>
-      <header className="identity-bar">
-        <a className="identity-mark" href="#overview" aria-label="Rohit Mahendra, profile overview">
-          <span className="identity-monogram" aria-hidden="true">RM</span>
-          <span className="identity-copy">
-            <strong>Rohit Mahendra</strong>
-            <small>public systems notebook</small>
-          </span>
+      <a className="skip-link" href="#content">Skip to content</a>
+
+      <header className="site-header">
+        <a className="wordmark" href="#content" aria-label="Rohit Mahendra, home">
+          <span>Rohit Mahendra</span>
+          <small>AI systems engineer</small>
         </a>
-        <nav aria-label="Profile sections">
-          <a href="#selected-work">Work</a>
-          <a href="#docathon-proof">Proof</a>
-          <a href="#local-router">Ask the profile</a>
+        <nav aria-label="Primary navigation">
+          <a href="#proof">Proof</a>
+          <a href="#reasoner">Ask</a>
+          <a href="#work">Work</a>
         </nav>
-        <a className="github-profile-link" href={profile.githubUrl} target="_blank" rel="noreferrer">
-          <MarkGithubIcon size={18} /> GitHub <ArrowUpRightIcon size={12} />
+        <a className="header-link" href={profile.githubUrl} target="_blank" rel="noreferrer">
+          <MarkGithubIcon size={17} /> GitHub <ArrowUpRightIcon size={11} />
         </a>
       </header>
 
-      <div className="profile-tabs">
-        <div className="tab-spacer" />
-        <a className="is-selected" href="#overview"><BookIcon size={17} /> Overview</a>
-        <a href={`${profile.githubUrl}?tab=repositories`} target="_blank" rel="noreferrer"><RepoIcon size={17} /> Repositories <small>GitHub</small></a>
-        <a href="#selected-work"><ProjectIcon size={17} /> Projects</a>
-        <a href="#docathon-proof"><TrophyIcon size={17} /> Proof</a>
-      </div>
-
-      <main className="profile-layout" id="overview">
-        <aside className="profile-sidebar">
-          <img className="avatar" src="./assets/rohit-avatar.png" alt="Rohit Yelukati Mahendra" />
-          <h1>{profile.name}</h1>
-          <p className="handle">{profile.handle}</p>
-          <a className="follow-button" href={profile.githubUrl} target="_blank" rel="noreferrer">Open GitHub profile</a>
-          <p className="follow-meta"><RepoIcon size={16} /> Public work · open source</p>
-          <ul className="profile-meta">
-            <li><BriefcaseIcon size={16} /> AI systems · Python</li>
-            <li><ClockIcon size={16} /> United Kingdom</li>
-            <li><LinkIcon size={16} /> <a href={profile.coffeeUrl}>buymeacoffee.com/ymrohit</a></li>
-            <li><LinkIcon size={16} /> <a href={profile.linkedinUrl}>in/ym-rohit</a></li>
-          </ul>
-          <div className="achievements">
-            <h2>GitHub achievements</h2>
-            <div className="achievement-row">
-              {achievements.map((achievement) => (
-                <img
-                  key={achievement.src}
-                  src={`./assets/${achievement.src}`}
-                  alt={achievement.name}
-                  title={`${achievement.name}: ${achievement.detail}`}
-                />
-              ))}
+      <main id="content">
+        <section className="hero" data-reveal>
+          <div className="hero-copy">
+            <p className="eyebrow">Python · AI systems · open source</p>
+            <h1>I build AI systems <em>that prove their work.</em></h1>
+            <p className="hero-intro">{profile.summary}</p>
+            <div className="hero-actions">
+              <a className="primary-link" href="#reasoner">Ask my work <ArrowDownIcon size={14} /></a>
+              <a href="#work">Explore selected systems</a>
             </div>
-            <p className="achievement-note">YOLO · Starstruck · Pair Extraordinaire · Quickdraw</p>
           </div>
-        </aside>
 
-        <section className="profile-main">
-          <article className="readme-card">
-            <div className="readme-path"><BookIcon size={17} /> <span>ymrohit</span> / README.md</div>
-            <div className="readme-body">
-              <header className="hero-copy">
-                <h2>Hi, I’m Rohit.</h2>
-                <p className="hero-line">{profile.tagline}</p>
-                <p>{profile.summary}</p>
-              </header>
-
-              <a className="docathon-line" id="docathon-proof" href={evidence[0].sourceUrl} target="_blank" rel="noreferrer">
-                <TrophyIcon size={16} />
-                <span><strong>#1 worldwide</strong> · PyTorch Docathon 2026</span>
-                <small>47 points · 19 merged PRs</small>
-                <ArrowUpRightIcon size={13} />
-              </a>
-
-              <section className="local-router" id="local-router">
-                <div className="router-heading">
-                  <span><SparklesFillIcon size={14} /> Ask this profile</span>
-                  <span className={`router-state ${routerState}`}><i /> {routerStatus}</span>
-                  {routerState !== "ready" && (
-                    <button type="button" onClick={activateRouter} disabled={routerState === "loading"}>
-                      {routerState === "loading" ? "loading…" : "load model"}
-                    </button>
-                  )}
-                </div>
-                <p className="runtime-disclosure">
-                  <strong>9.73 MB neural planner</strong>
-                  <span>runs entirely in this tab</span>
-                  <span>no server</span>
-                </p>
-                <form className="command-line" onSubmit={(event) => { event.preventDefault(); submitPrompt(); }}>
-                  <span aria-hidden="true">›</span>
-                  <input
-                    id="profile-prompt"
-                    value={query}
-                    onChange={(event) => setQuery(event.target.value)}
-                    onFocus={activateRouter}
-                    placeholder="ask about Rohit's work, contributions, or proof"
-                    autoComplete="off"
-                  />
-                  <button type="submit" aria-label="Run local profile query" disabled={commandBusy}>
-                    <PaperAirplaneIcon size={16} />
-                  </button>
-                </form>
-                {activity && (
-                  <div className="reasoner-activity" data-stage={activity.stage} aria-live="polite">
-                    <span className="activity-mark"><i /><i /><i /></span>
-                    <span>{activity.text}</span>
-                    <small>LIVE IN THIS TAB</small>
-                  </div>
-                )}
-                {commandResult && (
-                  <div className="profile-answer" aria-live="polite">
-                    <p>{commandResult.answer}</p>
-                    {commandResult.sources?.length > 0 && (
-                      <div className="answer-sources" aria-label="Public sources">
-                        <span>Sources</span>
-                        {commandResult.sources.map((source) => source.url ? (
-                          <a href={source.url} target="_blank" rel="noreferrer" key={source.id}>
-                            {source.title.replace(/[—–]/g, "-")} <ArrowUpRightIcon size={11} />
-                          </a>
-                        ) : (
-                          <span className="source-label" key={source.id}>{source.title.replace(/[—–]/g, "-")}</span>
-                        ))}
-                      </div>
-                    )}
-                    {commandResult.verified && (
-                      <small className="answer-proof">
-                        verified in this tab · {commandResult.evidenceRead} records read · {commandResult.latencyMs} ms
-                      </small>
-                    )}
-                  </div>
-                )}
-              </section>
-
-              <section className="selected-work" id="selected-work">
-                <div className="section-heading">
-                  <h3>Selected work</h3>
-                </div>
-                <div className="work-list">
-                  {workItems.map((item) => (
-                    <ProjectRow
-                      key={item.id}
-                      item={item}
-                      active={item.id === activeId}
-                      onOpen={openEvidence}
-                    />
-                  ))}
-                </div>
-              </section>
+          <aside className="identity-note" aria-label="About Rohit">
+            <img src="./assets/rohit-avatar.png" alt="Rohit Yelukati Mahendra" />
+            <div>
+              <strong>Rohit Yelukati Mahendra</strong>
+              <span>United Kingdom</span>
             </div>
-          </article>
-
-          <section className="pinned-section">
-            <h2>Pinned</h2>
-            <div className="pinned-grid">
-              {pinnedIds.map((id) => <PinnedCard key={id} item={byId(id)} />)}
+            <p>Building small, inspectable intelligence and the systems that hold it accountable.</p>
+            <div className="identity-links">
+              <a href={profile.linkedinUrl} target="_blank" rel="noreferrer">LinkedIn</a>
+              <a href={profile.coffeeUrl} target="_blank" rel="noreferrer">Coffee</a>
             </div>
-          </section>
+          </aside>
+        </section>
+
+        <section className="achievement-band" id="proof" data-reveal>
+          <a href={evidence[0].sourceUrl} target="_blank" rel="noreferrer">
+            <div className="achievement-rank"><span>#1</span><small>worldwide</small></div>
+            <div className="achievement-copy">
+              <small>Official global leaderboard</small>
+              <h2>PyTorch Docathon 2026</h2>
+            </div>
+            <dl>
+              <div><dt>47</dt><dd>points</dd></div>
+              <div><dt>19</dt><dd>merged PRs</dd></div>
+            </dl>
+            <ArrowUpRightIcon className="achievement-arrow" size={18} />
+          </a>
+        </section>
+
+        <section className="reasoner-section" id="reasoner" data-reveal>
+          <div className="section-intro">
+            <p className="section-number">01 / Live profile</p>
+            <div>
+              <h2>Don’t browse my résumé.<br /><em>Question the work.</em></h2>
+              <p>A distilled neural planner reads my full public record, connects evidence across projects, and answers with receipts.</p>
+            </div>
+          </div>
+
+          <div className="local-router">
+            <div className="router-meta">
+              <span className={`router-state ${routerState}`}><i /> {routerStatus}</span>
+              <p className="runtime-disclosure">
+                <strong>9.73 MB neural planner</strong>
+                <span>runs entirely in this tab</span>
+                <span>no server</span>
+              </p>
+              {routerState !== "ready" && (
+                <button type="button" onClick={activateRouter} disabled={routerState === "loading"}>
+                  {routerState === "loading" ? "loading" : "load local AI"}
+                </button>
+              )}
+            </div>
+
+            <form className="command-line" onSubmit={(event) => { event.preventDefault(); submitPrompt(); }}>
+              <label htmlFor="profile-prompt">Ask anything about Rohit’s public work</label>
+              <div>
+                <input
+                  id="profile-prompt"
+                  value={query}
+                  onChange={(event) => setQuery(event.target.value)}
+                  onFocus={activateRouter}
+                  placeholder="What has he built around browser-local AI?"
+                  autoComplete="off"
+                />
+                <button type="submit" aria-label="Ask the local profile" disabled={commandBusy || !query.trim()}>
+                  <PaperAirplaneIcon size={19} />
+                </button>
+              </div>
+            </form>
+
+            {activity && (
+              <div className="reasoner-activity" data-stage={activity.stage} aria-live="polite">
+                <span className="activity-mark"><i /><i /><i /></span>
+                <span>{activity.text}</span>
+                <small>live in this tab</small>
+              </div>
+            )}
+
+            {commandResult && (
+              <div className="profile-answer" aria-live="polite">
+                <p>{commandResult.answer}</p>
+                <SourceReceipts sources={commandResult.sources} />
+                {commandResult.verified && (
+                  <small className="answer-proof">
+                    verified here · {commandResult.evidenceRead} records read · {commandResult.latencyMs} ms
+                  </small>
+                )}
+              </div>
+            )}
+          </div>
+        </section>
+
+        <section className="work-section" id="work" data-reveal>
+          <div className="section-intro">
+            <p className="section-number">02 / Selected systems</p>
+            <div>
+              <h2>Ambitious ideas.<br /><em>Measured outputs.</em></h2>
+              <p>Five public systems spanning verified code generation, GPU kernels, multimodal intelligence, and browser AI.</p>
+            </div>
+          </div>
+
+          <div className="work-list">
+            {workItems.map((item, index) => (
+              <ProjectRow
+                key={item.id}
+                item={item}
+                index={index}
+                active={item.id === activeId}
+                onOpen={(id) => setActiveId((current) => current === id ? null : id)}
+              />
+            ))}
+          </div>
+        </section>
+
+        <section className="thesis-section" data-reveal>
+          <p className="section-number">03 / Working thesis</p>
+          <blockquote>Models can propose.<br /><em>Systems must decide.</em></blockquote>
+          <p>That principle connects the verifiers, local inference, typed contracts, public receipts, and open-source work across this portfolio.</p>
         </section>
       </main>
+
       <footer className="site-footer">
-        <span>Private by construction: no analytics, cookies, or prompt transmission.</span>
+        <div><strong>Rohit Mahendra</strong><span>AI systems that prove their work.</span></div>
+        <p>Private by construction: no analytics, cookies, or prompt transmission.</p>
         <a href="https://github.com/ymrohit/ymrohit.github.io" target="_blank" rel="noreferrer">
-          View source <ArrowUpRightIcon size={11} />
+          Source <ArrowUpRightIcon size={11} />
         </a>
       </footer>
     </div>

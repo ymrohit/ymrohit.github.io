@@ -52,7 +52,7 @@ export const evidence = [
     eyebrow: "VERIFIER-GUIDED GPU SYSTEMS",
     summary: "LLM-written Triton kernels, judged by a referee the model cannot edit.",
     detail:
-      "A small-model kernel generation system where candidates must pass correctness and stability gates before promotion. The verifier—not persuasive model output—decides what survives.",
+      "A small-model kernel generation system where candidates must pass correctness and stability gates before promotion. The verifier, not persuasive model output, decides what survives.",
     metric: "69 VERIFIED KERNELS",
     secondaryMetric: "STABILITY GATED",
     tags: ["verification", "gpu", "ai-systems"],
@@ -150,7 +150,7 @@ export const modeContent = {
   },
   researcher: {
     label: "Research lens",
-    headline: "I design loops where models propose—and independent verifiers decide.",
+    headline: "I design loops where models propose and independent verifiers decide.",
     order: ["ouroboros-kernelsmith", "crucible-studio", "universal-router", "openscenesense"],
   },
   recruiter: {
