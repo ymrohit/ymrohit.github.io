@@ -2,7 +2,7 @@
   "format": "profile-reasoner-corpus.v1",
   "meta": {
     "name": "Rohit public work corpus v3",
-    "documentCount": 93,
+    "documentCount": 98,
     "typeCounts": {
       "achievement": 1,
       "certification": 1,
@@ -12,16 +12,16 @@
       "contribution": 4,
       "education": 2,
       "experience": 4,
-      "footprint": 2,
+      "footprint": 3,
       "interest": 1,
       "limitation": 1,
       "origin": 1,
       "profile": 1,
-      "project": 18,
+      "project": 19,
       "recognition": 2,
       "repository": 11,
       "repository-fork": 12,
-      "research": 2,
+      "research": 5,
       "skill": 8,
       "strength": 4,
       "transformation": 1,
@@ -1668,7 +1668,7 @@
       "id": "r70",
       "type": "project",
       "title": "Profile Reasoner",
-      "summary": "A 10.95 MB browser-local neural evidence planner that routes open questions over 93 replaceable",
+      "summary": "A 10.95 MB browser-local neural evidence planner that routes open questions over 98 replaceable",
       "proof": "10.95 MB ONNX planner running entirely in the; Replaceable public",
       "tags": [
         "browser-ai",
@@ -1685,9 +1685,9 @@
       "url": "https://github.com/ymrohit/ymrohit.github.io",
       "display_title": "Profile Reasoner",
       "record_id": "profile-reasoner-v2",
-      "display_summary": "A 10.95 MB browser-local neural evidence planner that routes open questions over 93 replaceable public records, cites sources, keeps short context, and rejects unsupported or private claims.",
-      "display_proof": "10.95 MB ONNX planner running entirely in the browser; Replaceable public evidence corpus rather than profile facts in weights; 125 combined full-profile regression and browser-persona checks",
-      "embeddingB64": "tjGZsD4xgJJ/KEgp1Sw7rfkhMC06rHmptivnmA6vEC1ApcinWhVRrWYgcqbBMM+r5y+GJjqsmLJvr7kosKinHFksBiSjrWClSqP6JSotCCBprhas+K21LcIrHicYKS+jvKnmL5Ew9623MJAx8S4kMEkplDJLrhuwmq2mIdYbdS0/HvytAyxJrousZDBuLYswjC5jJWWjKrCqMJ2hg6VosoCfkyhQJF+scKi5rGiuBy8UsBSu+DFxnWuk9a6mn5UeK62xqggurKS1rh0pYiLArVuqvzKHrYEgPahCLQSpKyRhpx2ymq/Vq4YpjylBLCEvfaa9qJ6swC9dKm+uJqWiqg=="
+      "display_summary": "A 10.95 MB browser-local neural evidence planner that routes open questions over 98 replaceable public records, cites sources, keeps short context, and rejects unsupported or private claims.",
+      "display_proof": "10.95 MB ONNX planner running entirely in the browser; Replaceable public evidence corpus rather than profile facts in weights; 130 combined full-profile regression and browser-persona checks",
+      "embeddingB64": "wjEWsakx2hSKJ1soiy23rUwgwyyTrEyqnCsAlQyvXi1LpA+o4pUErfAgTqa6MGSr8C4lJz6snLJNry0n3Kj0EAYsWyVJrSem5KD9JIAteRF5rnyry60aLVcrsyeCKumjOKogME4wSq6JMNcxRC4lMHMpPTLArqKvl60mIKwcLS0Wm3muMyuLrvKsczBMLX8wai5/JbikYrDrMLSkP6ICsjceZyitJhCsn6jkrNuuUS9ir66uAjLtoViju655n5Me5awmq3EtO6UtrrMqBSRJrfOoqTKdrQchFKiHLd6pvSNHpUKyiq+xq4YqcSoLLFkvVaSEpyaswi+CK1mucqUorA=="
     },
     {
       "id": "r71",
@@ -2255,6 +2255,127 @@
       "display_summary": "Rohit's public OUROBOROS write-up reports a 1B MiniCPM5 system with 12 of 12 seeded wins over torch.compile max-autotune; a larger Qwen3.6-27B run produced 76 verified compiler-beating H200 kernels, with 69 surviving a five-run stability gate and a reported mean 1.30x speedup.",
       "display_proof": "12 of 12 seeded small-model wins; 69 five-run-stable H200 kernels; Mean reported speedup of 1.30x on verified tasks",
       "embeddingB64": "5S1QsBUwYZ6TLwyvdyzkpSionywyrgiv4y/AISSvPS1NJ6ssEat/jk6mSZ0xMLWumaiAMCQl2LOmKGMotiRtrMOsT6DnrhSoDaxhrAgpaiLJnSitoq49pJ6qGy8sMbakRa3fLw2hQq0jLWMtaxl/KnwwHiihr8+vBDBopl6okTAOKDuxJKyhroOrsi1YLc8q0Sw6JSaqi60+MYmqiyqsqy6Z4S/vKAijbqW2sqWyMyRzIT0oVi4uq5apbrDiJHQcbrFbpC0weLA3KV0woqtbq4IsZjDTpNMotK8zKsKtqSwCKJeuy7EtrDYv+yXUK0kwxSOFKnwsBC3nLY+p3qtopA=="
+    },
+    {
+      "id": "r94",
+      "type": "footprint",
+      "title": "Hugging Face research footprint",
+      "summary": "As checked on 25 August 2026, Rohit's Hugging Face profile publishes 16 models and 26 public",
+      "proof": "16 public model repositories; 15 agent-assisted paper-reproduction",
+      "tags": [
+        "hugging-face",
+        "models",
+        "spaces",
+        "research",
+        "open-science"
+      ],
+      "domain": "hugging-face models spaces research",
+      "year": 2026,
+      "direct": true,
+      "merged_prs": 0,
+      "url": "https://huggingface.co/YMRohit",
+      "display_title": "Hugging Face research footprint",
+      "record_id": "huggingface-public-footprint",
+      "display_summary": "As checked on 25 August 2026, Rohit's Hugging Face profile publishes 16 models and 26 public Spaces. Fifteen Spaces are agent-assisted ICML 2026 paper-reproduction logbooks; the remaining Spaces expose supporting metrics, artifacts, and research demos.",
+      "display_proof": "16 public model repositories; 15 agent-assisted paper-reproduction logbooks; Two technical field notes and a verified kernel corpus",
+      "embeddingB64": "VS0rr08yL6/2LIepwigApV6pmav2qxWnxy21GD2ugymCICmoH65wJQWq0KUuM72toqmfMa2sS7PxphgqIyrVrienoyucp5qv45zqpDIsnSRtsCmlBbBhnyoqgS68LiOkMK1NL2So2qpLLc8x+ynfMK8sdC+vr92ktiwOqtik8TA9LT2vvhxqKjucJjDwJAAiGSpmLN+qa7EXMrQiVykPsNEscC8OKtCrPrAirqGw4jAVoICdaCA/q1wmxKeAIuOnHayBLScs663dqT8w7KM8rW0pMDL5rQqc+61FMQGurylGKgGwdbDQr9AqvqkbLSIvSSEfJhomRxmMKAOtOJUcrg=="
+    },
+    {
+      "id": "r95",
+      "type": "research",
+      "title": "Agent-assisted paper reproduction program",
+      "summary": "Rohit published 15 ICML 2026 reproduction logbooks built with coding and research agents. Each",
+      "proof": "15 public reproduction logbooks; Claim-by-claim gates instead of blanket",
+      "tags": [
+        "paper-reproduction",
+        "agents",
+        "icml-2026",
+        "evaluation",
+        "open-science"
+      ],
+      "domain": "paper-reproduction agents icml-2026 evaluation",
+      "year": 2026,
+      "direct": true,
+      "merged_prs": 0,
+      "url": "https://huggingface.co/YMRohit/collections",
+      "display_title": "Agent-assisted paper reproduction program",
+      "record_id": "agent-paper-reproduction-program",
+      "display_summary": "Rohit published 15 ICML 2026 reproduction logbooks built with coding and research agents. Each is framed as a claim-by-claim audit with public execution logs, artifacts, frozen gates, and explicit pass, partial, conditional, or unsupported outcomes.",
+      "display_proof": "15 public reproduction logbooks; Claim-by-claim gates instead of blanket success claims; Public logs, metrics, artifacts, and reviewer adjudication",
+      "embeddingB64": "JyxesMMxmK1aKhCqlCudp6iqWQziqYmvWS7wqaixjiQmpicruKwSqSSsty6YMRyuVSCmMc+nSLNDolMf8p//qh6oLqTUpV2y7ioDqk0tTqyZqVWwxbAvK0apoJsNoy6ghqaqLiurI6njLbox8idOKuMpvi43sIKy3y57q7Cvby6pJ7moXSS1q46tHC0tJreo4CxXLZAmxq2QMccp8i2XsJEryS68LNKs4q61HV+xg5IjrlKtsTDnJiWpnq3LqGcbfRtDrPgsB6xyq+0uexZjq0yvKDKJoVOsYqzwJk6rRi9TK1So2LAPqJctViE+I18yhKmeKGap/RqSKiqqgrANqQ=="
+    },
+    {
+      "id": "r96",
+      "type": "research",
+      "title": "Optimal self-distillation reproduction",
+      "summary": "Rohit's strongest agent-assisted reproduction ran a 2,700-row float64 L4 experiment for ICML",
+      "proof": "2,700-row float64 L4 execution; Five of five frozen gates passed for",
+      "tags": [
+        "self-distillation",
+        "paper-reproduction",
+        "agents",
+        "verification",
+        "icml-2026"
+      ],
+      "domain": "self-distillation paper-reproduction agents verification",
+      "year": 2026,
+      "direct": true,
+      "merged_prs": 0,
+      "url": "https://huggingface.co/collections/YMRohit/icml-2026-22249-optimal-self-distillation-reproduction",
+      "display_title": "Optimal self-distillation reproduction",
+      "record_id": "self-distillation-reproduction",
+      "display_summary": "Rohit's strongest agent-assisted reproduction ran a 2,700-row float64 L4 experiment for ICML 2026 paper 22249 and passed all five frozen gates for claim 3. The wider paper-level conclusion remained conditional or partial where the evidence did not close every claim.",
+      "display_proof": "2,700-row float64 L4 execution; Five of five frozen gates passed for claim 3; 189-file content-addressed public release",
+      "embeddingB64": "fCzVrQY0Qau3MRgpdizGrRqki6iomgGvlCk+ruWpXSq4HM0lZqKLrOMgDCigLnqxTKXfK7CwMrDwqsQkUabBpHiuoyiXKL+t9CyOJdYstanwrditDq1CpCgoTjMGMCYsf622L6IreJu9J0ww6SIkMPopliwUr9qu9y+NrEWtbjAUKtmvPazKrSOmnDALKUkonymLJTQjsbCkL9ilK6qNrnIhVDGBJtSupK1urn6uKjGRqjmuPzIrJrsmeKhmnQ+hH61RKO0rq6i/pC8xUKxrruYmTTSrrhctsaQ+LXapvKI/p6ixgaq2rQIb/C2iJUgv1yM2JX4kKiubKKemaamMqQ=="
+    },
+    {
+      "id": "r97",
+      "type": "research",
+      "title": "d3LLM and MemoryBench reproductions",
+      "summary": "Rohit's public ICML 2026 collection applies the same agent-assisted, evidence-gated",
+      "proof": "Public d3LLM reproduction evidence; Public MemoryBench reproduction",
+      "tags": [
+        "d3llm",
+        "memorybench",
+        "paper-reproduction",
+        "agents",
+        "icml-2026"
+      ],
+      "domain": "d3llm memorybench paper-reproduction agents",
+      "year": 2026,
+      "direct": true,
+      "merged_prs": 0,
+      "url": "https://huggingface.co/collections/YMRohit/icml-2026-reproductions-d3llm-and-memorybench-claude",
+      "display_title": "d3LLM and MemoryBench reproductions",
+      "record_id": "d3llm-memorybench-reproductions",
+      "display_summary": "Rohit's public ICML 2026 collection applies the same agent-assisted, evidence-gated reproduction method to d3LLM and MemoryBench, keeping claim outcomes, metrics, and limitations visible instead of compressing them into a single success label.",
+      "display_proof": "Public d3LLM reproduction evidence; Public MemoryBench reproduction evidence; Explicit claim status and limitation reporting",
+      "embeddingB64": "EyqIrD+cq6gMKb2oNyTrn/kl4KkFrASvqSp2qauyqqzSqpcuoLECoCOqBzD2MFKtpy7LMS2cp7D0pBYuMazgsAimQKHmqPWtQKkqrHwswSAmq/ixXaycHFIioqiTJR8m7qERqYOsOaEQMW4tUyabKkWoty+srxiyDzF9nNixJzAGK4YwRi7jpe6wxi9VLHyr+CfSLMqfK6bwMDIhLyzqsIquHi1AnDglurAErc6w/Kc/qhGn3KXiqfQm2KSKJ4kkGJRVp2osS6tHr+8trqM+qLSxljEln/2vkrGKIEysdzAzLwols6sgqBUrCynELA4yQSn0o1EeeqEfLkWuOq10Hg=="
+    },
+    {
+      "id": "r98",
+      "type": "project",
+      "title": "OUROBOROS Hugging Face research shelf",
+      "summary": "OUROBOROS is published as an inspectable Hugging Face ecosystem: small and large model",
+      "proof": "Public model releases and verified kernel; Runnable Hugging Face Space",
+      "tags": [
+        "ouroboros",
+        "triton",
+        "gpu",
+        "models",
+        "datasets",
+        "hugging-face"
+      ],
+      "domain": "ouroboros triton gpu models",
+      "year": 2026,
+      "direct": true,
+      "merged_prs": 0,
+      "url": "https://huggingface.co/blog/YMRohit/ouroboros-kernel-mint",
+      "display_title": "OUROBOROS Hugging Face research shelf",
+      "record_id": "ouroboros-huggingface-ecosystem",
+      "display_summary": "OUROBOROS is published as an inspectable Hugging Face ecosystem: small and large model releases, a verified kernel corpus, a live research Space, and two technical field notes explaining the method and results.",
+      "display_proof": "Public model releases and verified kernel dataset; Runnable Hugging Face Space; Two long-form technical field notes",
+      "embeddingB64": "iS3Tqhcuf63bLnSm0iTPmT6paCyRrPassDDzopaqmi2OJTwdjK7LJXKsrqNtMDaunqleMVcqvbI4JeEpJSyPsH2sxyDAsPGlZ64CqyEqIC0vqgmtt632Khutwi5HMF2mn6wWLMKmAK4jL28qPScpLacwCSnurK+sbC06qFCmTDJlKq2wI656qTioly5cLdMn3i/mJTyr8q3dMN8igyhGrAur5S8zp/wk1KzPsiWxkyozkKIusyvUrr+eda/zlY0kprB6KHAvgrCnLdIv861Pp38ssTGcrBEgarACLfmt4S1ToyqwrbL5qAAtJKndLhEwyR8jKDMsoCywKyWncqO2pw=="
     }
   ]
 }

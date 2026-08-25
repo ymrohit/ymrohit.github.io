@@ -34,6 +34,11 @@ CASES = [
     ("What certifications does he hold?", ["MTA Database Fundamentals", "2018"], []),
     ("What is Rohit's research background?", ["EEG", "medical image", "OUROBOROS"], []),
     ("Tell me about his EEG research.", ["92%", "97.5%", "90%"], []),
+    ("What has Rohit reproduced?", ["15 agent-assisted", "claim-by-claim", "five frozen gates"], []),
+    ("Did every paper reproduction succeed?", ["not blanket claims", "conditional or partial"], []),
+    ("What is his strongest paper reproduction?", ["2,700-row", "claim 3", "d3LLM"], []),
+    ("Did he use agents to reproduce papers?", ["15 agent-assisted", "public execution logs"], []),
+    ("What has Rohit published on Hugging Face?", ["16 models", "26 public Spaces", "verified GPU-kernel corpus"], []),
     ("How did Rohit get started as a builder?", ["From 2016", "Pet Me", "smart car"], []),
     ("What did he build before Xeal?", ["Find My Grocery", "Treasure Scan", "Pet Me"], []),
     ("Has Rohit done any community or leadership work?", ["Infotsav", "Hyderabad", "2019"], []),
@@ -62,7 +67,7 @@ def main() -> None:
         page = browser.new_page(viewport={"width": 1280, "height": 900})
         page.goto(URL, wait_until="domcontentloaded")
         page.wait_for_function(
-            "document.querySelector('.router-state.ready')?.textContent.includes('93 public records')",
+            "document.querySelector('.router-state.ready')?.textContent.includes('98 public records')",
             timeout=120_000,
         )
         page.evaluate("""

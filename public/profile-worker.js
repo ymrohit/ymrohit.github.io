@@ -223,6 +223,8 @@ function personaIntent(value) {
   if (/\b(?:education|degree|degrees|university|college|studied|study|academic background|qualification|qualifications)\b/.test(lowered)) return "education";
   if (/\b(?:weakness|weaknesses|shortcoming|shortcomings|development area|areas to improve|could improve|needs? to improve|limitations?|large team|team leadership)\b/.test(lowered)) return "limitations";
   if (/\b(?:hobby|hobbies|interest|interests|interested|motivation|motivates|drives|passionate|outside work|care about)\b/.test(lowered)) return "interests";
+  if (/\b(?:reproduce|reproduced|reproduces|reproducing|reproduction|reproductions)\b|\bpaper\s+(?:audit|audits|logbook|logbooks)\b/.test(lowered)) return "reproductions";
+  if (/\b(?:hugging\s*face|hf profile|hf spaces?|hf models?|field notes?|published models?|kernel corpus)\b/.test(lowered)) return "huggingface";
   if (/\b(?:competition|competitions|awards?|recognition|hackathon|certification|certifications|honours?|honors?|won|wins)\b/.test(lowered)) return "recognition";
   if (/\b(?:research background|academic research|thesis|dissertation|eeg)\b/.test(lowered)) return "research";
   if (/\b(?:github stats|github footprint|public footprint|how many repos|how many repositories|pypi packages|published packages)\b/.test(lowered)) return "footprint";
@@ -638,6 +640,8 @@ function rankDocuments(question, embedding, operation, priorIds = [], specificTe
       education: ["education"],
       limitations: ["limitation"],
       interests: ["interest", "origin"],
+      reproductions: ["research"],
+      huggingface: ["footprint", "research", "project"],
       recognition: ["achievement", "recognition", "certification"],
       research: ["research", "experience"],
       footprint: ["footprint"],
@@ -843,6 +847,24 @@ function renderPersonaAnswer(intent, evidence) {
       [interest, origin],
     );
   }
+  if (intent === "reproductions") {
+    const program = byId("agent-paper-reproduction-program") || ofType("research")[0];
+    const selfDistillation = byId("self-distillation-reproduction") || ofType("research")[1];
+    const breadth = byId("d3llm-memorybench-reproductions") || ofType("research")[2];
+    return sourced(
+      "Rohit has published 15 agent-assisted ICML 2026 paper-reproduction logbooks on Hugging Face. They are claim-by-claim audits with public execution logs, artifacts, frozen gates, and explicit outcomes, not blanket claims that every paper was fully reproduced. The strongest example is a 2,700-row float64 L4 self-distillation run that passed all five frozen gates for claim 3; wider conclusions remained conditional or partial where the evidence was incomplete. His public collections also cover d3LLM and MemoryBench.",
+      [program, selfDistillation, breadth],
+    );
+  }
+  if (intent === "huggingface") {
+    const footprint = byId("huggingface-public-footprint") || ofType("footprint")[0];
+    const reproductions = byId("agent-paper-reproduction-program") || ofType("research")[0];
+    const ouroboros = byId("ouroboros-huggingface-ecosystem") || ofType("project")[0];
+    return sourced(
+      "Rohit's Hugging Face profile is a structured public research shelf. As checked on 25 August 2026, it contains 16 models and 26 public Spaces. Fifteen Spaces are agent-assisted ICML 2026 paper-reproduction logbooks, while the others expose supporting metrics, artifacts, and research demos. It also includes two technical field notes, a verified GPU-kernel corpus, curated reproduction collections, and the OUROBOROS model and demo ecosystem.",
+      [footprint, reproductions, ouroboros],
+    );
+  }
   if (intent === "recognition") {
     const docathon = byId("docathon-2026") || ofType("achievement")[0];
     const buildSmall = byId("build-small-2026") || ofType("recognition")[0];
@@ -857,17 +879,19 @@ function renderPersonaAnswer(intent, evidence) {
     const eeg = byId("eeg-emotion-research") || ofType("research")[0];
     const imaging = byId("hertfordshire-research-role") || ofType("experience")[0];
     const ouroboros = byId("ouroboros-public-results") || ofType("research")[1];
+    const reproductions = byId("agent-paper-reproduction-program") || ofType("research")[2];
     return sourced(
-      "Rohit's research spans EEG emotion recognition, medical image annotation, and verifier-guided GPU kernel generation. His MSc work reported 92% valence, 97.5% arousal, and 90% dominance accuracy on the DREAMER setup. At Hertfordshire he built a CNN-assisted tumour annotation workflow, while OUROBOROS studies whether small models can produce compiler-beating Triton kernels under independent correctness and stability gates.",
-      [eeg, imaging, ouroboros],
+      "Rohit's research spans EEG emotion recognition, medical image annotation, verifier-guided GPU kernel generation, and agent-assisted paper reproduction. His MSc work reported 92% valence, 97.5% arousal, and 90% dominance accuracy on the DREAMER setup. At Hertfordshire he built a CNN-assisted tumour annotation workflow. OUROBOROS tests small-model Triton generation under independent gates, while 15 public ICML 2026 logbooks audit paper claims with execution logs and explicit pass, partial, conditional, or unsupported outcomes.",
+      [eeg, imaging, ouroboros, reproductions],
     );
   }
   if (intent === "footprint") {
     const github = byId("github-public-footprint") || ofType("footprint")[0];
     const pypi = byId("pypi-publications") || ofType("footprint")[1];
+    const huggingface = byId("huggingface-public-footprint") || ofType("footprint")[2];
     return sourced(
-      "As checked on 25 August 2026, ymrohit has 25 public GitHub repositories, 14 public gists, and 257 contributions in the preceding year. Rohit also publishes three PyPI packages: openscenesense, openscenesense-ollama, and ukpostcodeio. Forks are kept separate from work he authored.",
-      [github, pypi],
+      "As checked on 25 August 2026, ymrohit has 25 public GitHub repositories, 14 public gists, and 257 contributions in the preceding year. Rohit's three PyPI packages are openscenesense, openscenesense-ollama, and ukpostcodeio. He also publishes 16 Hugging Face models and 15 agent-assisted paper-reproduction logbooks. Forks are kept separate from work he authored.",
+      [github, pypi, huggingface],
     );
   }
   if (intent === "background") {

@@ -110,6 +110,9 @@ def main() -> None:
         assert page.locator(".reasoner-path").count() == 0
         assert page.locator(".identity-note .portrait").count() == 1
         assert page.locator(".badge-orbit img").count() == 4
+        assert page.locator('.identity-links a[href="https://huggingface.co/YMRohit"]').count() == 1
+        assert "15" in page.locator(".proof-fact-link").inner_text()
+        assert "agent-assisted paper reproductions" in page.locator(".proof-fact-link").inner_text()
         assert page.locator(".ai-console").count() == 0
         assert page.locator(".command-line").count() == 1
         assert page.locator(".profile-tabs, .readme-card, .pinned-card").count() == 0
@@ -145,8 +148,20 @@ def main() -> None:
         first_project.get_by_role("button", name="Close CRUCIBLE STUDIO").click()
         assert "is-open" not in (first_project.get_attribute("class") or "")
 
+        ouroboros = page.locator('[data-evidence-id="ouroboros-kernelsmith"]')
+        ouroboros.locator(".work-row").click()
+        page.wait_for_timeout(300)
+        assert ouroboros.locator(".receipt-links a").count() == 5
+        assert "Verified corpus" in ouroboros.locator(".receipt-links").inner_text()
+        assert page.evaluate(
+            "node => node.querySelector('.inline-receipt').scrollHeight <= node.clientHeight + 1",
+            ouroboros.element_handle(),
+        )
+        page.screenshot(path=str(SCREENSHOTS / "portfolio-ouroboros-receipt.png"), full_page=False)
+        ouroboros.get_by_role("button", name="Close OUROBOROS KERNELSMITH").click()
+
         page.wait_for_function(
-            "document.querySelector('.router-state.ready')?.textContent.includes('93 public records')",
+            "document.querySelector('.router-state.ready')?.textContent.includes('98 public records')",
             timeout=120_000,
         )
 
@@ -261,6 +276,19 @@ def main() -> None:
         assert "EEG emotion recognition" in research_answer, research_answer
         assert "medical image annotation" in research_answer, research_answer
         assert "OUROBOROS" in research_answer, research_answer
+        assert "15 public ICML 2026 logbooks" in research_answer, research_answer
+
+        reproductions_answer = ask("What has Rohit reproduced using agents?")
+        assert "15 agent-assisted ICML 2026" in reproductions_answer, reproductions_answer
+        assert "claim-by-claim audits" in reproductions_answer, reproductions_answer
+        assert "five frozen gates for claim 3" in reproductions_answer, reproductions_answer
+        assert "conditional or partial" in reproductions_answer, reproductions_answer
+
+        huggingface_answer = ask("What has Rohit published on Hugging Face?")
+        assert "16 models" in huggingface_answer, huggingface_answer
+        assert "26 public Spaces" in huggingface_answer, huggingface_answer
+        assert "verified GPU-kernel corpus" in huggingface_answer, huggingface_answer
+        assert page.locator(".answer-sources a").count() >= 2
 
         interest_answer = ask("What is Rohit interested in outside his current role?")
         assert "small capable models" in interest_answer, interest_answer
@@ -329,7 +357,7 @@ def main() -> None:
         if console_errors:
             raise AssertionError(f"Console errors: {console_errors}")
 
-    print("[profile-e2e] PASS: 10.95 MB planner, 93-record career and project answers, receipts, privacy, responsive")
+    print("[profile-e2e] PASS: 10.95 MB planner, 98-record career and project answers, receipts, privacy, responsive")
 
 
 if __name__ == "__main__":

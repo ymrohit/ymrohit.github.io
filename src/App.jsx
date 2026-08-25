@@ -39,13 +39,25 @@ function InlineReceipt({ item, onClose }) {
           <span className="local-proof">running on this page</span>
         )}
       </div>
+      {item.relatedLinks?.length > 0 && (
+        <nav className="receipt-links" aria-label={`${item.title} research artifacts`}>
+          {item.relatedLinks.map((link) => (
+            <a href={link.url} target="_blank" rel="noreferrer" key={link.url}>
+              {link.label} <ArrowUpRightIcon size={12} />
+            </a>
+          ))}
+        </nav>
+      )}
     </div>
   );
 }
 
 function ProjectRow({ item, active, onOpen }) {
   return (
-    <article className={`work-item ${active ? "is-open" : ""}`} data-evidence-id={item.id}>
+    <article
+      className={`work-item ${active ? "is-open" : ""} ${item.relatedLinks?.length ? "has-related" : ""}`}
+      data-evidence-id={item.id}
+    >
       <button
         className="work-row"
         type="button"
@@ -288,6 +300,7 @@ export function App() {
               <div className="identity-links">
                 <a href={`mailto:${profile.email}`}>Email</a>
                 <a href={profile.linkedinUrl} target="_blank" rel="noreferrer">LinkedIn</a>
+                <a href={profile.huggingFaceUrl} target="_blank" rel="noreferrer">Hugging Face</a>
                 <a href={profile.coffeeUrl} target="_blank" rel="noreferrer">Coffee</a>
               </div>
             </div>
@@ -314,8 +327,18 @@ export function App() {
           <div className="proof-facts" aria-label="Public profile facts">
             <div><strong>5+</strong><span>years at Xeal Pharma</span></div>
             <div><strong>25</strong><span>public repositories</span></div>
-            <div><strong>3</strong><span>published PyPI packages</span></div>
-            <div><strong>93</strong><span>profile evidence records</span></div>
+            <a
+              className="proof-fact-link"
+              href={profile.huggingFaceCollectionsUrl}
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Explore Rohit's 15 agent-assisted paper reproductions on Hugging Face"
+            >
+              <strong>15</strong>
+              <span>agent-assisted paper reproductions</span>
+              <ArrowUpRightIcon size={14} />
+            </a>
+            <div><strong>98</strong><span>profile evidence records</span></div>
           </div>
         </section>
 

@@ -7,14 +7,14 @@ Rohit Yelukati Mahendra's minimalist evidence-first portfolio, with a small neur
 ## What ships
 
 - a 10.95 MB ONNX evidence planner;
-- 93 replaceable public records spanning career, projects, research, achievements, and professional contact;
+- 98 replaceable public records spanning career, projects, research, achievements, and professional contact;
 - neural retrieval with literal evidence constraints;
 - multi-record synthesis and short follow-up context;
 - compact source receipts and private-data refusal;
 - a locally packaged ONNX Runtime Web engine;
 - no inference server, paid API, analytics, cookies, or prompt transmission.
 
-The frozen model cleared 1,147 fresh validation and hidden cases, including 120 counterfactual pairs, plus 82 full-profile regression checks and 43 browser-persona questions. Every exported ONNX output matches the PyTorch checkpoint on the parity suite. The browser receives only the planner export, vocabulary, runtime, and replaceable evidence corpus.
+The frozen model cleared 1,147 fresh validation and hidden cases, including 120 counterfactual pairs, plus 82 full-profile regression checks and 48 browser-persona questions. Every exported ONNX output matches the PyTorch checkpoint on the parity suite. The browser receives only the planner export, vocabulary, runtime, and replaceable evidence corpus.
 
 ## Run locally
 

@@ -8,6 +8,8 @@ export const profile = {
   email: "mahendrarohittigon@gmail.com",
   githubUrl: "https://github.com/ymrohit",
   linkedinUrl: "https://www.linkedin.com/in/ym-rohit",
+  huggingFaceUrl: "https://huggingface.co/YMRohit",
+  huggingFaceCollectionsUrl: "https://huggingface.co/YMRohit/collections",
   coffeeUrl: "https://buymeacoffee.com/ymrohit",
 };
 
@@ -59,6 +61,13 @@ export const evidence = [
     tags: ["verification", "gpu", "ai-systems"],
     sourceUrl: "https://github.com/ymrohit/ouroboros-kernelsmith",
     linkLabel: "Open repository",
+    relatedLinks: [
+      { label: "Live Space", url: "https://huggingface.co/spaces/build-small-hackathon/ouroboros-kernel-mint" },
+      { label: "Models", url: "https://huggingface.co/YMRohit/models" },
+      { label: "Verified corpus", url: "https://huggingface.co/datasets/YMRohit/ouroboros-kernel-corpus" },
+      { label: "Kernel mint notes", url: "https://huggingface.co/blog/YMRohit/ouroboros-kernel-mint" },
+      { label: "Method notes", url: "https://huggingface.co/blog/YMRohit/ouroboros" },
+    ],
     icon: "cpu",
     execution: {
       mode: "replay",
@@ -70,11 +79,11 @@ export const evidence = [
     type: "project",
     title: "PROFILE REASONER",
     eyebrow: "BROWSER-LOCAL EVIDENCE AI",
-    summary: "A 10.95 MB planner reasons over 93 replaceable public records in this tab.",
+    summary: "A 10.95 MB planner reasons over 98 replaceable public records in this tab.",
     detail:
-      "This page runs a distilled six-pass evidence planner through ONNX Runtime WASM. It routes open questions over the public corpus, retrieves evidence, keeps follow-up context, and rejects unsupported or private claims. The release cleared 1,147 fresh validation and hidden cases, including 120 counterfactual pairs, plus 82 full-profile regression checks and 43 browser-persona questions.",
+      "This page runs a distilled six-pass evidence planner through ONNX Runtime WASM. It routes open questions over the public corpus, retrieves evidence, keeps follow-up context, and rejects unsupported or private claims. The release cleared 1,147 fresh validation and hidden cases, including 120 counterfactual pairs, plus 82 full-profile regression checks and 48 browser-persona questions.",
     metric: "10.95 MB · LOCAL",
-    secondaryMetric: "125/125 PROFILE CHECKS",
+    secondaryMetric: "130/130 PROFILE CHECKS",
     tags: ["browser-ai", "local-ai", "reasoning", "verification", "ai-systems"],
     sourceUrl: null,
     linkLabel: "Running on this page",
@@ -171,7 +180,7 @@ export const modeContent = {
 export const suggestedPrompts = [
   "Who is Rohit?",
   "What is he strongest at?",
-  "What has he won?",
+  "What has he reproduced?",
   "How can I contact him?",
 ];
 
